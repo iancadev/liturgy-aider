@@ -1,0 +1,81 @@
+<script lang="ts">
+    /*
+        Items are styled using CSS (based on "title")
+        The program is built by copying-and-pasting saved components (using a scroll-sheet)
+
+        To solve the fitting problem, variants (and image shrink variables) can be used in the div.
+        Spacing of the entire page, then text, is adjusted, using a JS algorithm.
+        (Text has a hard-maximum font-size, so spacing and vertical margins will be used to fill space. Otherwise, text can shrink slightly.)
+        Text is taken from scripts for auto-indentation (based on if the first character of the line is capitalized)
+
+        To view the graphical preview, a Svelte.js server watches the files for changes (VSCode File>Auto Save),
+        and applies any necessary variants to render the final HTML
+
+
+        REPLACEMENT: done by editing this single file
+            (it would be pretty easy to make a preview page for replacing images and text, though.)
+        REUSE: done by copying and pasting snippets in a saved folder
+            (bin/hymns/layout-1.html, bin/gloria/layout-1.html -> crawler goes folder-by-folder and stacks them with copy-paste for easy viewing)
+        VIEWING: done through a Svelte preview server
+        FITTING: handled automatically by JS, or by using variant commands
+        IMAGINING: place the page-breaks in different places (and seeing a JS color-coding calculation) to imagine what needs to be changed.
+
+
+        Preview conversion:
+         - apply variants based on rule-set functions
+         - apply shrink based on image or text
+         - split images
+         - set-up page breaks
+
+        Manual spacing, WYSIWYG is excluded from this scope.
+        Shrinking COULD be previewed in the Svelte preview server.
+        Pretty sure font-size can be estimated from the .tif files.
+        MAYBE the config file can also have a smallest-acceptable font (so Nicene Creed is smaller than readings?)
+
+        Clip-art? No idea...
+    */
+</script>
+
+<!-- title -->
+<div is="title">
+    <h1>The Solemnity of the Most Holy Trinity</h1>
+    <p is="hnj">Holy Name of Jesus - St. Gregory the Great Church - 96th St. and Amsterdam, NYC</p>
+    <p is="prelude">Prelude "Visione" Josef Rheinberger (1839-1901)</p>
+</div>
+
+<div is="hymn">
+    <p is="title">Opening Hymn "Holy, Holy, Holy, Lord God Almighty"</p>
+    <img src="opening-hymn.png" shrink="0.9" />
+</div>
+
+<div is="gloria">
+    <p is="title">Gloria</p>
+    <img src="gloria.png" shrink="0.9" split="3" /> <!-- split automatically creates a page-break. splits can be halved to correspond to text-lines -->
+</div>
+
+<div is="reading" variant="two-column">
+    <p is="title">First Reading</p>
+    <p is="verse">Exodus 34:4b-6, 8-9</p>
+    <script is="text">
+        text = `
+Early in the morning Moses went up Mount Sinai
+as the LORD had commanded him, taking along the two stone tablets.
+
+Having come down in a cloud, the LORD stood with Moses there
+and proclaimed his name, "LORD."
+Thus the LORD passed before him and cried out,
+"The LORD, the LORD, a merciful and gracious God,
+slow to anger and rich in kindness and fidelity."
+Moses at once bowed down to the ground in worship.
+Then he said, "If I find favor with you, O Lord,
+do come along in our company.
+This is indeed a stiff-necked people; yet pardon our
+wickedness and sins,
+and receive us as your own."
+`
+    </script>
+</div>
+
+<div is="interlude">Homily + Profession of Faith</div>
+
+<div is="page-break"></div>
