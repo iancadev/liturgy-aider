@@ -43,6 +43,9 @@
 
                     for (const img of el.querySelectorAll("img")) {
                         const htmlImg = img as HTMLImageElement;
+                        htmlImg.addEventListener("load", () => {
+                            requestAnimationFrame(relayout);
+                        })
 
                         if (!htmlImg.dataset.baseWidth) {
                             htmlImg.dataset.baseWidth = String(
