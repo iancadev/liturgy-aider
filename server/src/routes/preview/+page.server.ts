@@ -9,38 +9,19 @@ Watch for changes to the file and re-apply variants
 */
 
 import type { PageServerLoad } from './$types';
-import * as cheerio from 'cheerio';
+import { redirect } from '@sveltejs/kit';
+
 import { readFile } from 'node:fs/promises';
-import path from 'node:path';
-import { isTiffSrc, convertTiffToPng } from '$lib/server/tiff';
-
-const HTML_FILE = path.resolve('../current.html');
+import { replaceTiffImages, checkSyntax } from '$lib/server/htmlProcessing';
 
 
-export const load: PageServerLoad = async () => {
-    const html = await readFile(HTML_FILE, 'utf-8');
+export const load: PageServerLoad = async ({ cookies }) => {
+    if (!cookies.get('html_file')) redirect(303, '/');
+    const html_file = cookies.get('html_file')
 
-    const $ = cheerio.load(html);
+    let html = await readFile(html_file, 'utf-8');
 
-    const tiffImages = $('img')
-        .toArray()
-        .filter((img) => {
-            const src = $(img).attr('src');
-            return src && isTiffSrc(src);
-        });
+    html = replaceTiffImages(html);
 
-    await Promise.all(
-        tiffImages.map(async (img) => {
-            const src = $(img).attr('src');
-            if (!src) return;
-
-            const newSrc = await convertTiffToPng(src, HTML_FILE);
-
-            $(img).attr('src', newSrc);
-        })
-    );
-
-    return {
-        html: $.html()
-    };
+    return { html, syntaxErrors: checkSyntax(html) }
 };

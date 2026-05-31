@@ -12,7 +12,11 @@ export function srcToLocalPath(src: string, HTML_FILE?: string): string {
     // Example:
     // <img src="./foo.tif">
     // resolves relative to the HTML file
-    return path.resolve(path.dirname(HTML_FILE), src);
+    if (HTML_FILE) {
+        return path.resolve(path.dirname(HTML_FILE), src);
+    }
+
+    return "https://placehold.co/600x400"
 }
 
 export async function fileExists(filePath: string): Promise<boolean> {
