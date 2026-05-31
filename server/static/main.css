@@ -16,3 +16,12 @@ a.landing {
     text-decoration: none;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
+
+div[is] h1 { font-size: 2em; }
+div[is] h2 { font-size: 1.5em; }
+div[is] h3 { font-size: 1.17em; }
+div[is] h4 { font-size: 1em; }
+div[is] h5 { font-size: 0.83em; }
+div[is] h6 { font-size: 0.67em; }
+
+div[is] p { font-size: 1em; }

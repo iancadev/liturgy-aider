@@ -5,9 +5,17 @@ div.DisplayPage {
     margin: 0.5in auto;
     text-align: center;
     background: #f4f4f9;
+
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 50px;
 }
 
-#first-page-reminder {
+div#first-page-reminder {
+    width: 8.5in;
+    height: 11in;
+    text-align: center;
     visibility: hidden;
     display: none;
 }
@@ -34,7 +42,8 @@ div.DisplayPage {
         margin: 0;
     }
 
-    #first-page-reminder {
+    div#first-page-reminder {
+        visibility: visible;
         display: block;
     }
 }
