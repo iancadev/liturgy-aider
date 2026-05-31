@@ -73,8 +73,7 @@ export const extractFields = async (html: string): Promise<Record<string, any>> 
         ];
 
         let value: string | undefined;
-        console.log(el.tagName);
-
+        
         switch (el.tagName) {
             case "img":
                 value = $(el).attr("src") ?? undefined;
