@@ -1,0 +1,26 @@
+html, body {
+    margin: 0px;
+    background: #bbbbc0;
+}
+
+body {
+    padding: 8px;
+}
+
+div.DisplayPage {
+    width: 8.5in;
+    height: 11in;
+    border: 2px solid black;
+    margin: 0.5in auto;
+    text-align: center;
+}
+
+a.landing {
+    color: black;
+    border: 1px solid black;
+    border-radius: 2px;
+    padding: 4px;
+    background: white;
+    text-decoration: none;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+}

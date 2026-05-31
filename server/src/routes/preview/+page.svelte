@@ -10,6 +10,7 @@
     let { data } = $props();
 </script>
 
+<a class="landing" href="/">Menu</a>
 <DisplayPage>
     {@html data.html}
 </DisplayPage>

@@ -4,6 +4,7 @@
     let { data } = $props();
 </script>
 
+<a class="landing" href="/">Menu</a>
 <table>
     {#each Object.entries(data.fields) as field}
         <tr>
