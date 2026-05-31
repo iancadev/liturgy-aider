@@ -29,13 +29,28 @@ export async function fileExists(filePath: string): Promise<boolean> {
     }
 }
 
+async function removeCssRecursive(dir: string) {
+    try {
+        const entries = await fs.readdir(dir, { withFileTypes: true });
+
+        for (const entry of entries) {
+            const fullPath = path.join(dir, entry.name);
+
+            if (entry.isDirectory()) {
+                await removeCssRecursive(fullPath);
+            } else if (entry.name.endsWith(".ltrg.css")) {
+                await fs.unlink(fullPath);
+            }
+        }
+    } catch {
+        // Directory doesn't exist yet.
+    }
+}
+
 export async function copyRecursive(src: string, dest: string) {
-    await fs.rm(dest, {
-        recursive: true,
-        force: true
-    });
-    
     await fs.mkdir(dest, { recursive: true });
+
+    await removeCssRecursive(dest);
 
     const entries = await fs.readdir(src, { withFileTypes: true });
 
