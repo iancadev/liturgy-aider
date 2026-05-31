@@ -3,7 +3,13 @@
 
     let { data } = $props();
 
-    function changeValue(target: string, value: string) {}
+    function changeValue(target: string, value: string) {
+        fetch("/api/update-html", {
+            method: "POST",
+            body: JSON.stringify({ target, value }),
+            headers: { "Content-Type": "application/json" }
+        });
+    }
 </script>
 
 <a class="landing" href="/">Menu</a>
