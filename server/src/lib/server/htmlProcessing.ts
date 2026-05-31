@@ -73,6 +73,7 @@ export const extractFields = async (html: string): Promise<Record<string, any>> 
         ];
 
         let value: string | undefined;
+        console.log(el.tagName);
 
         switch (el.tagName) {
             case "img":
@@ -107,7 +108,7 @@ export const extractFields = async (html: string): Promise<Record<string, any>> 
         }
 
         if (value) {
-            fields[path.join("")] = value;
+            fields[path.join(" ")] = value;
             // setNestedValue(fields, path, value);
         }
     });
