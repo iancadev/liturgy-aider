@@ -1,0 +1,40 @@
+div.DisplayPage {
+    width: 8.5in;
+    height: 11in;
+    border: 2px solid black;
+    margin: 0.5in auto;
+    text-align: center;
+    background: #f4f4f9;
+}
+
+#first-page-reminder {
+    visibility: hidden;
+    display: none;
+}
+
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    div.PrintPages,
+    div.PrintPages * {
+        visibility: visible;
+    }
+
+    div.PrintPages {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+
+    div.DisplayPage {
+        border: 0;
+        margin: 0;
+    }
+
+    #first-page-reminder {
+        display: block;
+    }
+}

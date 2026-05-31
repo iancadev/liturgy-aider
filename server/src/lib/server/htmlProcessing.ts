@@ -19,6 +19,7 @@ export const replaceTiffImages = async (html: string): Promise<string> => {
             const newSrc = await convertTiffToPng(src);
 
             $(img).attr('src', newSrc);
+            $(img).attr('wasTiff', 'true');
         })
     );
 
