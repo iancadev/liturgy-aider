@@ -21,7 +21,7 @@ export const load: PageServerLoad = async ({ cookies }) => {
 
     let html = await readFile(html_file, 'utf-8');
 
-    html = replaceTiffImages(html);
+    html = await replaceTiffImages(html);
 
     return { html, syntaxErrors: checkSyntax(html) }
 };

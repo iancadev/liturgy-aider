@@ -26,12 +26,13 @@ export async function convertTiffToPng(src: string, HTML_FILE?: string): Promise
     await mkdir(GENERATED_DIR, { recursive: true });
 
     // Cache conversion so you don't regenerate on every request.
-    if (!(await fileExists(outputPath))) {
+    if (!(await fileExists(outputPath)) && (await fileExists(inputPath))) {
         await sharp(inputPath)
             .png()
             .toFile(outputPath);
+        return `/generated-images/${outputFilename}`;
     }
 
     // Public URL from SvelteKit's `static/` directory
-    return `/generated-images/${outputFilename}`;
+    return inputPath;
 }

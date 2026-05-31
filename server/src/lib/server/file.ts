@@ -1,4 +1,5 @@
 import path from 'node:path';
+import fs from 'node:fs/promises';
 import { access } from 'node:fs/promises';
 
 export function srcToLocalPath(src: string, HTML_FILE?: string): string {
@@ -26,4 +27,59 @@ export async function fileExists(filePath: string): Promise<boolean> {
     } catch {
         return false;
     }
+}
+
+export async function copyRecursive(src: string, dest: string) {
+    await fs.rm(dest, {
+        recursive: true,
+        force: true
+    });
+    
+    await fs.mkdir(dest, { recursive: true });
+
+    const entries = await fs.readdir(src, { withFileTypes: true });
+
+    for (const entry of entries) {
+        const srcPath = path.join(src, entry.name);
+        const destPath = path.join(dest, entry.name);
+
+        if (entry.isDirectory()) {
+            await copyRecursive(srcPath, destPath);
+        } else {
+            await fs.copyFile(srcPath, destPath);
+        }
+    }
+}
+
+export async function getStylesheets(
+    dir: string,
+    root?: string
+): Promise<string[]> {
+    const result: string[] = [];
+
+    if (!root) {
+        return getStylesheets(dir, dir);
+    }
+
+    const entries = await fs.readdir(dir, {
+        withFileTypes: true
+    });
+
+    for (const entry of entries) {
+        const fullPath = path.join(dir, entry.name);
+
+        if (entry.isDirectory()) {
+            result.push(...await getStylesheets(fullPath, root));
+        } else if (
+            entry.name.endsWith('.css')
+        ) {
+            const relative = path
+                .relative(root, fullPath)
+                .replaceAll('\\', '/');
+
+            result.push(`/project-styles/${relative}`);
+        }
+    }
+
+    return result;
 }
