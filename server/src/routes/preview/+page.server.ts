@@ -15,9 +15,11 @@ import { readFile } from 'node:fs/promises';
 import { replaceTiffImages, checkSyntax } from '$lib/server/htmlProcessing';
 
 
-export const load: PageServerLoad = async ({ cookies }) => {
+export const load: PageServerLoad = async ({ cookies, depends }) => {
+    depends("watch:html_file");
+
     if (!cookies.get('html_file')) redirect(303, '/');
-    const html_file = cookies.get('html_file')
+    const html_file = cookies.get('html_file');
 
     let html = await readFile(html_file, 'utf-8');
 

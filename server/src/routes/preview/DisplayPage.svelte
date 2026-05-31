@@ -52,7 +52,7 @@
 
                         const baseWidth = Number(htmlImg.dataset.baseWidth);
 
-                        htmlImg.style.width = `${baseWidth * font / Image_Font}px`;
+                        htmlImg.style.width = `${(baseWidth * font) / Image_Font}px`;
                         htmlImg.style.height = "auto";
                     }
                 }
@@ -112,15 +112,18 @@
     }
 
     onMount(() => {
-        const ro = new ResizeObserver(() => {
+        const mo = new MutationObserver(() => {
             requestAnimationFrame(relayout);
         });
 
-        ro.observe(page);
+        mo.observe(page, {
+            childList: true,
+            subtree: true,
+        });
 
         requestAnimationFrame(relayout);
 
-        return () => ro.disconnect();
+        return () => mo.disconnect();
     });
 </script>
 

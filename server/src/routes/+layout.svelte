@@ -10,8 +10,15 @@
 		es.onmessage = async () => {
 			await invalidate("watch:styles");
 		};
+
+		const es2 = new EventSource("/api/watch-html");
+		es2.onmessage = async () => {
+			await invalidate("watch:html_file");
+		};
+
 		return () => {
 			es.close();
+			es2.close();
 		}
 	});
 

@@ -25,32 +25,16 @@ export function watchStyles() {
 
 watchStyles();
 
-// export function unwatchStyles() {
-//     stylesWatcher?.close();
-//     stylesWatcher = undefined;
-// }
-
 
 
 export const htmlFileEvent = new EventEmitter();
 
-const watchers = new Map<string, fs.FSWatcher>();
+let watcher: fs.FSWatcher | undefined;
 
 export function watchHtmlFile(file: string) {
-    if (watchers.has(file)) return;
+    watcher?.close()
 
-    const watcher = fs.watch(file, () => {
+    watcher = fs.watch(file, () => {
         htmlFileEvent.emit("changed", file);
     });
-
-    watchers.set(file, watcher);
-}
-
-export function unwatchHtmlFile(file: string) {
-    const watcher = watchers.get(file);
-
-    if (!watcher) return;
-
-    watcher.close();
-    watchers.delete(file);
 }
