@@ -32,8 +32,12 @@ export async function editHtmlText(
 
     const el = elements.eq(index);
 
-    el.contents().filter((_, node) => node.type === "text").remove();
-    el.append(newText);
+    if ($(el).get(0).tagName == "img") {
+        $(el).attr("src", newText)
+    } else {
+        el.contents().filter((_, node) => node.type === "text").remove();
+        el.append(newText);
+    }
 
     await fs.writeFile(filePath, format($.html()), "utf-8");
 }
