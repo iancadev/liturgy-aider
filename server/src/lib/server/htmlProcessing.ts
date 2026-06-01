@@ -101,8 +101,7 @@ export const extractFields = async (html: string): Promise<Record<string, any>> 
                     .toArray()
                     .filter(node => node.type === "text")
                     .map(node => node.data)
-                    .join("")
-                    .trim();
+                    .join("");
                 break;
         }
 
