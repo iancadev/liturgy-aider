@@ -1,30 +1,45 @@
 import * as cheerio from 'cheerio';
-import { isTiffSrc, convertTiffToPng } from '$lib/server/tiff';
+import * as path from "path";
+import { isTiffSrc, convertTiffToPng, serveLocal } from '$lib/server/tiff';
 
-export const replaceTiffImages = async (html: string): Promise<string> => {
+
+export const resolveImgs = async (
+    html: string,
+    html_file: string
+): Promise<string> => {
     const $ = cheerio.load(html);
 
-    const tiffImages = $('img')
-        .toArray()
-        .filter((img) => {
-            const src = $(img).attr('src');
-            return src && isTiffSrc(src);
-        });
+    const htmlDir = path.dirname(html_file);
 
-    await Promise.all(
-        tiffImages.map(async (img) => {
-            const src = $(img).attr('src');
-            if (!src) return;
+    for (const el of $("img[src]").toArray()) {
+        const src = $(el).attr("src");
+        if (!src) continue;
 
-            const newSrc = await convertTiffToPng(src);
+        // Skip already-absolute URLs and data URIs
+        if (
+            src.startsWith("http://") ||
+            src.startsWith("https://") ||
+            src.startsWith("file://") ||
+            src.startsWith("data:")
+        ) {
+            continue;
+        }
 
-            $(img).attr('src', newSrc);
-            $(img).attr('wasTiff', 'true');
-        })
-    );
+        const absolutePath = path.resolve(htmlDir, src);
+
+        if (isTiffSrc(absolutePath)) {
+            const newSrc = await convertTiffToPng(absolutePath);
+            $(el).attr("src", newSrc);
+            $(el).attr("wasTiff", 'true')
+        } else {
+            const newSrc = await serveLocal(absolutePath)
+            $(el).attr("src", newSrc);
+        }
+    }
 
     return $.html();
-}
+};
+
 
 
 export const checkSyntax = async (html: string): Promise<string[]> => {
@@ -59,7 +74,7 @@ export const extractFields = async (html: string): Promise<Record<string, any>> 
     }
 
     // Extract text fields
-    $("[is]").each((_, el) => {
+    for (const el of $("[is]").toArray()) {
         const path = [
             ...$(el)
                 .parents("[is]")
@@ -73,10 +88,16 @@ export const extractFields = async (html: string): Promise<Record<string, any>> 
         ];
 
         let value: string | undefined;
+        let preview: string | undefined;
         
         switch (el.tagName) {
             case "img":
                 value = $(el).attr("src") ?? undefined;
+                if (value && isTiffSrc(value)) {
+                    preview = await convertTiffToPng(value);
+                } else {
+                    preview = value;
+                }
                 break;
 
             case "script": {
@@ -106,10 +127,10 @@ export const extractFields = async (html: string): Promise<Record<string, any>> 
         }
 
         if (value) {
-            fields[path.join(" ")] = value;
+            fields[path.join(" ")] = { value, preview };
             // setNestedValue(fields, path, value);
         }
-    });
+    }
 
     return fields;
 };

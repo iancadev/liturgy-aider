@@ -1,5 +1,8 @@
 node_modules
 
+static/generated-images
+static/project-styles
+
 # Output
 .output
 .vercel

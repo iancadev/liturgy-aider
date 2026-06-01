@@ -1,7 +1,7 @@
 <script lang="ts">
     let { data } = $props();
 
-    let values = $state({ ...data.fields });
+    let entries = $state({ ...data.fields });
 
     const textareas: Record<string, HTMLTextAreaElement> = {};
 
@@ -10,15 +10,15 @@
     $effect(() => {
         const active = document.activeElement;
 
-        for (const [key, serverValue] of Object.entries(data.fields)) {
+        for (const [key, serverEntry] of Object.entries(data.fields)) {
             if (textareas[key] !== active) {
-                values[key] = serverValue;
+                entries[key].value = serverEntry.value;
             }
         }
     });
 
     function changeValue(target: string, value: string) {
-        values[target] = value;
+        entries[target].value = value;
 
         clearTimeout(timers.get(target));
 
@@ -39,7 +39,7 @@
 
 <table>
     <tbody>
-        {#each Object.entries(values) as [key]}
+        {#each Object.entries(entries) as [key]}
             <tr>
                 <td
                     onclick={() => {
@@ -54,7 +54,7 @@
                     <textarea
                         data-key={key}
                         bind:this={textareas[key]}
-                        bind:value={values[key]}
+                        bind:value={entries[key].value}
                         oninput={(e) => changeValue(key, e.currentTarget.value)}
                     ></textarea>
                 </td>

@@ -45,13 +45,11 @@
                         const htmlImg = img as HTMLImageElement;
                         htmlImg.addEventListener("load", () => {
                             requestAnimationFrame(relayout);
-                        })
+                        });
 
-                        if (!htmlImg.dataset.baseWidth) {
-                            htmlImg.dataset.baseWidth = String(
-                                htmlImg.naturalWidth || htmlImg.width,
-                            );
-                        }
+                        htmlImg.dataset.baseWidth = String(
+                            htmlImg.naturalWidth || htmlImg.width,
+                        );
 
                         const baseWidth = Number(htmlImg.dataset.baseWidth);
 
