@@ -17,13 +17,17 @@ export async function editHtmlText(
     const elements = $(selector);
 
     if (elements.length === 0) {
-        throw new Error(`No elements found for selector: ${selector}`);
+        // throw new Error(`No elements found for selector: ${selector}`);
+        console.log(`No elements found for selector: ${selector}`);
+        return;
     }
 
     if (index < 0 || index >= elements.length) {
-        throw new Error(
-            `Index ${index} out of bounds. Found ${elements.length} elements.`
-        );
+        // throw new Error(
+        //     `Index ${index} out of bounds. Found ${elements.length} elements.`
+        // );
+        console.log(`Index ${index} out of bounds. Found ${elements.length} elements.`);
+        return;
     }
 
     const el = elements.eq(index);
