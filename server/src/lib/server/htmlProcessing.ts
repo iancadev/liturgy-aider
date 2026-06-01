@@ -100,15 +100,6 @@ export const extractFields = async (html: string): Promise<Record<string, any>> 
                 }
                 break;
 
-            case "script": {
-                const content = $(el).html() ?? "";
-                const match = content.match(
-                    /\btext\s*=\s*`([\s\S]*?)`/
-                );
-                value = match?.[1];
-                break;
-            }
-
             case "p":
             case "span":
             case "h1":
@@ -117,6 +108,7 @@ export const extractFields = async (html: string): Promise<Record<string, any>> 
             case "h4":
             case "h5":
             case "h6":
+            case "pre":
                 value = $(el)
                     .contents()
                     .toArray()

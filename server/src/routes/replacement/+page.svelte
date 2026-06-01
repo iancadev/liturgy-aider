@@ -10,7 +10,20 @@
     $effect(() => {
         const active = document.activeElement;
 
+        // Remove deleted fields
+        for (const key of Object.keys(entries)) {
+            if (!(key in data.fields)) {
+                delete entries[key];
+            }
+        }
+
+        // Add/update existing fields
         for (const [key, serverEntry] of Object.entries(data.fields)) {
+            if (!(key in entries)) {
+                entries[key] = { ...serverEntry };
+                continue;
+            }
+
             if (textareas[key] !== active) {
                 entries[key].value = serverEntry.value;
             }
