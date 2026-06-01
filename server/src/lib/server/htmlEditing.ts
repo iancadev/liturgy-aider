@@ -41,3 +41,64 @@ export async function editHtmlText(
 
     await fs.writeFile(filePath, format($.html()), "utf-8");
 }
+
+
+
+export async function movePageBreak(
+    filePath: string,
+    index: number,
+    direction: "up" | "down"
+) {
+    const html = await fs.readFile(filePath, "utf8");
+    const $ = cheerio.load(html, {
+        decodeEntities: false,
+        xmlMode: false,
+    });
+
+    const body = $("body");
+
+    if (body.children().length == 0) {
+        return;
+    }
+
+    let hrs = body.children("hr");
+
+    if (index >= hrs.length) {
+        body.append("<hr>");
+        hrs = body.children("hr");
+        index = hrs.length - 1;
+    }
+
+    const hr = hrs.eq(index);
+
+    if (!hr.length) {
+        return;
+    }
+
+    if (direction === "up") {
+        const prev = hr.prevAll().filter((_, el) => el.type === "tag").first();
+
+        if (prev.length) {
+            prev.before(hr);
+        }
+    } else {
+        const next = hr.nextAll().filter((_, el) => el.type === "tag").first();
+
+        if (next.length) {
+            next.after(hr);
+        }
+    }
+
+    const elements = body.children();
+    const movedHr = body.children("hr").eq(index);
+
+    if (movedHr.length) {
+        const pos = elements.index(movedHr);
+
+        if (pos === 0 || pos === elements.length - 1) {
+            movedHr.remove();
+        }
+    }
+
+    await fs.writeFile(filePath, format($.html()));
+}

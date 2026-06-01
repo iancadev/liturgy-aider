@@ -126,3 +126,7 @@ export const extractFields = async (html: string): Promise<Record<string, any>> 
 
     return fields;
 };
+
+export const splitByPageBreaks = (html: string): string[] => {
+    return html.split(/<hr\b[^>]*\/?>/i);
+}

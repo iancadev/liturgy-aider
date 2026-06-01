@@ -1,13 +1,25 @@
 <script lang="ts">
-    // import { PageProps } from './$types';
     import DisplayPage from "./DisplayPage.svelte";
-
-    /*
-    Now that we're on DOM, you can use DOM features to test rescaling live.
-
-    The server will have loaded the HTML with variants applied.
-*/
     let { data } = $props();
+
+    const timers = new Map<number, number>();    
+    function send(element:HTMLButtonElement, index: number, direction: string) {
+        element.disabled = true;
+
+        clearTimeout(timers.get(index));
+
+        timers.set(
+            index,
+            window.setTimeout(async () => {
+                const response = await fetch("/api/move-break", {
+                    method: "POST",
+                    body: JSON.stringify({ index, direction }),
+                    headers: { "Content-Type": "application/json" },
+                });
+                element.disabled = false;
+            }, 100),
+        );
+    }
 </script>
 
 <svelte:head>
@@ -23,7 +35,29 @@
             <p style="color: red;">Make sure to set Margins in your print settings to None!</p>
         </div>
     </div>
-    <DisplayPage>
-        {@html data.html}
-    </DisplayPage>
+    {#each data.pages as page, i}
+        <DisplayPage>
+            {@html page}
+        </DisplayPage>
+        <div class="PageBreakButtons">
+            <button onclick={() => send(this, i, "up")}>↑↑↑↑</button>
+            <small>(page break)</small>
+            <button onclick={() => send(this, i, "down")}>↓↓↓↓</button>
+        </div>
+    {/each}
 </div>
+
+<style>
+    .PageBreakButtons {
+        text-align: center;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 30px;
+    }
+    .PageBreakButtons button {
+        padding: 5px 5px;
+        font-size: 20px;
+    }
+</style>
