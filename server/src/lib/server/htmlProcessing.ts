@@ -45,7 +45,7 @@ export const resolveImgs = async (
 export const checkSyntax = async (html: string): Promise<string[]> => {
     // check that every element has an is
     // check attributes are spelled correctly/are valid
-    // check that variants are valid
+    // check that modifiers are valid
 
     return [];
 }

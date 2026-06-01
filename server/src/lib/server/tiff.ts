@@ -4,7 +4,7 @@ import { copyFile, mkdir } from 'node:fs/promises';
 import path from 'node:path';
 
 
-import { fileExists, srcToLocalPath } from './file';
+import { fileExists } from './file';
 
 const GENERATED_DIR = path.resolve('static/generated-images');
 

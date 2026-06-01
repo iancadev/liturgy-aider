@@ -1,13 +1,3 @@
-/*
-
-Load the file
-
-Apply variants to the HTML
-
-Watch for changes to the file and re-apply variants
-
-*/
-
 import type { PageServerLoad } from './$types';
 import { redirect } from '@sveltejs/kit';
 
@@ -20,7 +10,6 @@ import { compileHTML } from '$lib/server/htmlCompiling';
 export const load: PageServerLoad = async ({ cookies, depends }) => {
     depends("watch:html_file");
 
-    if (!cookies.get('html_file')) redirect(303, '/');
     const html_file = cookies.get('html_file');
 
     let html = await readFile(html_file, 'utf-8');

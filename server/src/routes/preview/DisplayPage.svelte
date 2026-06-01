@@ -1,28 +1,29 @@
 <script lang="ts">
     import { onMount } from "svelte";
+    import { CONFIG } from "$lib/layout";
 
     let { children } = $props();
 
     let page: HTMLDivElement;
 
-    const Inches = 96; // pixels
-    const Image_Font = 100; // height of text in pixels
+    const {
+        Inches,
+        Image_Font,
+        IDEAL_FONT,
+        MIN_FONT,
+        MAX_FONT,
+        IDEAL_GAP,
+        MIN_GAP,
+        MAX_GAP,
+        IDEAL_PADDING,
+        MAX_PADDING,
+        MIN_PADDING,
+    } = CONFIG;
 
     const PAGE_WIDTH = 8.5 * Inches;
     const PAGE_HEIGHT = 11 * Inches;
+
     const MAX_WIDTH = PAGE_WIDTH - 2 * 0.2 * Inches;
-
-    const IDEAL_FONT = 12;
-    const MIN_FONT = 8;
-    const MAX_FONT = 16;
-
-    const IDEAL_PADDING = 1 * Inches;
-    const MIN_PADDING = 0.4 * Inches;
-    const MAX_PADDING = 2 * Inches;
-
-    const IDEAL_GAP = 0.2 * Inches;
-    const MIN_GAP = 0.05 * Inches;
-    const MAX_GAP = 2 * Inches;
 
     function relayout() {
         if (!page) return;
@@ -53,10 +54,13 @@
                             htmlImg.naturalWidth || htmlImg.width,
                         );
 
-                        const imageFont = (el.hasAttribute("font")) ? parseFloat(el.getAttribute("font")) : Image_Font;
+                        const imageScaling = !isNaN(el.getAttribute("scale"))
+                            ? parseFloat(el.getAttribute("scale"))
+                            : 1;
 
                         const baseWidth = Number(htmlImg.dataset.baseWidth);
-                        const desiredWidth = baseWidth * font / imageFont;
+                        const desiredWidth =
+                            (baseWidth * font * imageScaling) / Image_Font;
 
                         htmlImg.style.width = `${Math.min(desiredWidth, MAX_WIDTH)}px`;
                         htmlImg.style.height = "auto";

@@ -1,28 +1,41 @@
 <script lang="ts">
 	import favicon from "$lib/assets/favicon.svg";
 
-	// TO-DO: import central style sheet
 	import { invalidate } from "$app/navigation";
 	import { onMount } from "svelte";
 
-	onMount(() => {
-		const es = new EventSource("/api/watch-styles");
+	let { data, children } = $props();
+
+	let es: EventSource | null = null;
+	let es2: EventSource | null = null;
+
+	function startStreams() {
+		// HTML watcher (now tied to cookie via server-provided data.html_file)
+		es?.close();
+		es = new EventSource("/api/watch-styles");
 		es.onmessage = async () => {
 			await invalidate("watch:styles");
 		};
 
-		const es2 = new EventSource("/api/watch-html");
+		es2?.close();
+		es2 = new EventSource("/api/watch-html");
 		es2.onmessage = async () => {
 			await invalidate("watch:html_file");
 		};
+	}
 
-		return () => {
-			es.close();
-			es2.close();
-		}
+	// restart streams whenever html_file changes
+	$effect(() => {
+		data.html_file; // <- reactive dependency from layout.server.ts
+		startStreams();
 	});
 
-	let { data, children } = $props();
+	onMount(() => {
+		return () => {
+			es?.close();
+			es2?.close();
+		};
+	});
 </script>
 
 <svelte:head>

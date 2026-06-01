@@ -6,8 +6,9 @@ import path from 'node:path';
 import { stylesDir } from '$lib/server/fileWatcher';
 
 
-export const load: LayoutServerLoad = async ({ depends }) => {
+export const load: LayoutServerLoad = async ({ cookies, depends }) => {
     depends('watch:styles');
+    depends('app:html_file');
 
     const sourceDir = stylesDir;
     const staticDir = path.resolve('static/project-styles');
@@ -18,6 +19,7 @@ export const load: LayoutServerLoad = async ({ depends }) => {
 
     return {
         stylesheets,
-        now: Date.now()
+        now: Date.now(),
+        html_file: cookies.get('html_file')
     };
 };
