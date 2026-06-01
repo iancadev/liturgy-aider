@@ -1,29 +1,66 @@
 <script lang="ts">
-    /* render the list of texts and src's, with tabs to select */
-
     let { data } = $props();
 
+    let values = $state({ ...data.fields });
+
+    const textareas: Record<string, HTMLTextAreaElement> = {};
+
+    const timers = new Map<string, number>();
+
+    $effect(() => {
+        const active = document.activeElement;
+
+        for (const [key, serverValue] of Object.entries(data.fields)) {
+            if (textareas[key] !== active) {
+                values[key] = serverValue;
+            }
+        }
+    });
+
     function changeValue(target: string, value: string) {
-        fetch("/api/update-html", {
-            method: "POST",
-            body: JSON.stringify({ target, value }),
-            headers: { "Content-Type": "application/json" }
-        });
+        values[target] = value;
+
+        clearTimeout(timers.get(target));
+
+        timers.set(
+            target,
+            window.setTimeout(() => {
+                fetch("/api/update-html", {
+                    method: "POST",
+                    body: JSON.stringify({ target, value }),
+                    headers: { "Content-Type": "application/json" },
+                });
+            }, 300),
+        );
     }
 </script>
 
 <a class="landing" href="/">Menu</a>
+
 <table>
-    {#each Object.entries(data.fields) as field}
-        <tr>
-            <td>{field[0]}</td><td
-                ><textarea
-                    value={field[1]}
-                    oninput={(e) => changeValue(field[0], e.target.value)}
-                ></textarea></td
-            >
-        </tr>
-    {/each}
+    <tbody>
+        {#each Object.entries(values) as [key]}
+            <tr>
+                <td
+                    onclick={() => {
+                        textareas[key]?.focus();
+                        textareas[key]?.select();
+                    }}
+                >
+                    {key}
+                </td>
+
+                <td>
+                    <textarea
+                        data-key={key}
+                        bind:this={textareas[key]}
+                        bind:value={values[key]}
+                        oninput={(e) => changeValue(key, e.currentTarget.value)}
+                    ></textarea>
+                </td>
+            </tr>
+        {/each}
+    </tbody>
 </table>
 
 <style>
