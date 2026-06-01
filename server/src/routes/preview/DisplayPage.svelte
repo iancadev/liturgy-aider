@@ -8,11 +8,13 @@
     const Inches = 96; // pixels
     const Image_Font = 100; // height of text in pixels
 
+    const PAGE_WIDTH = 8.5 * Inches;
     const PAGE_HEIGHT = 11 * Inches;
+    const MAX_WIDTH = PAGE_WIDTH - 2 * 0.2 * Inches;
 
-    const IDEAL_FONT = 15;
-    const MIN_FONT = 10;
-    const MAX_FONT = 20;
+    const IDEAL_FONT = 12;
+    const MIN_FONT = 8;
+    const MAX_FONT = 16;
 
     const IDEAL_PADDING = 1 * Inches;
     const MIN_PADDING = 0.4 * Inches;
@@ -51,9 +53,12 @@
                             htmlImg.naturalWidth || htmlImg.width,
                         );
 
-                        const baseWidth = Number(htmlImg.dataset.baseWidth);
+                        const imageFont = (el.hasAttribute("font")) ? parseFloat(el.getAttribute("font")) : Image_Font;
 
-                        htmlImg.style.width = `${(baseWidth * font) / Image_Font}px`;
+                        const baseWidth = Number(htmlImg.dataset.baseWidth);
+                        const desiredWidth = baseWidth * font / imageFont;
+
+                        htmlImg.style.width = `${Math.min(desiredWidth, MAX_WIDTH)}px`;
                         htmlImg.style.height = "auto";
                     }
                 }
