@@ -120,7 +120,7 @@ const processScale = (html: string): string => {
     $("[scale]").each((_, el) => {
         const $el = $(el);
 
-        if (el.tagName === "image") {
+        if (el.tagName === "img") {
             return;
         }
 

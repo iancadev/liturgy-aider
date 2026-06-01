@@ -54,8 +54,8 @@
                             htmlImg.naturalWidth || htmlImg.width,
                         );
 
-                        const imageScaling = !isNaN(el.getAttribute("scale"))
-                            ? parseFloat(el.getAttribute("scale"))
+                        const imageScaling = (htmlImg.getAttribute("scale") && !isNaN(htmlImg.getAttribute("scale")))
+                            ? parseFloat(htmlImg.getAttribute("scale"))
                             : 1;
 
                         const baseWidth = Number(htmlImg.dataset.baseWidth);
