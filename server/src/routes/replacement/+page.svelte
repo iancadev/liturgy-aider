@@ -215,6 +215,10 @@
                                     <img
                                         src={entries[key].preview}
                                         style="max-height: {maxHeight}px"
+                                        onclick={() => {
+                                            textareas[key]?.focus();
+                                            textareas[key]?.select();
+                                        }}
                                     /> <br />
                                 {/if}
                                 <textarea
@@ -264,12 +268,14 @@
         min-width: 80%;
     }
 
-    .View > select, .View > div {
+    .View > select,
+    .View > div {
         overflow-y: auto;
         height: 100%;
     }
 
-    .View > div, .View table {
+    .View > div,
+    .View table {
         width: 100%;
         flex-grow: 1;
     }
@@ -290,5 +296,10 @@
     }
     td:nth-child(1) {
         font-size: 20px;
+        cursor: pointer;
+    }
+
+    img {
+        cursor: pointer;
     }
 </style>
