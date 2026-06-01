@@ -101,6 +101,10 @@ const processPre = (html: string): string => {
 
         const $p = $('<p pre></p>');
         $p.html(fragments.join(""));
+        for (const [k, v] of Object.entries($pre.attr() ?? {})) {
+            if (k === "indent") continue;
+            $p.attr(k, v);
+        }
 
         $pre.replaceWith($p);
     });
@@ -108,9 +112,51 @@ const processPre = (html: string): string => {
     return $.html();
 }
 
+const processScale = (html: string): string => {
+    const $ = cheerio.load(html, {
+        decodeEntities: false
+    });
+
+    $("[scale]").each((_, el) => {
+        const $el = $(el);
+
+        if (el.tagName === "image") {
+            return;
+        }
+
+        const scale = Number($el.attr("scale"));
+
+        if (!Number.isFinite(scale)) {
+            return;
+        }
+
+        const innerHtml = $el.html() ?? "";
+
+        $el.html(
+            `<span style="font-size:${scale}em;">${innerHtml}</span>`
+        );
+
+        if (scale < 1) {
+            const marginStyle = `line-height: ${scale}`;
+
+            const existingStyle = $el.attr("style");
+            $el.attr(
+                "style",
+                existingStyle
+                    ? `${existingStyle.trim().replace(/;?$/, ";")} ${marginStyle};`
+                    : `${marginStyle};`
+            );
+        }
+
+        $el.removeAttr("scale");
+    });
+
+    return $.html();
+};
 
 
 export const compileHTML = (html: string): string => {
     html = processTwoCols(html);
-    return processPre(html);
+    html = processPre(html);
+    return processScale(html);
 };

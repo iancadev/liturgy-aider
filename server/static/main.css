@@ -27,3 +27,13 @@ div[is] h5 { font-size: 0.83em; }
 div[is] h6 { font-size: 0.67em; }
 
 div[is] p { font-size: 1em; }
+
+div[is] h1,
+div[is] h2,
+div[is] h3,
+div[is] h4,
+div[is] h5,
+div[is] h6,
+div[is] p {
+    margin: 0;
+}
