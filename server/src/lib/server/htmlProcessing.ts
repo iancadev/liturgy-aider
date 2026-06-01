@@ -51,6 +51,7 @@ export const checkSyntax = async (html: string): Promise<string[]> => {
 }
 
 
+
 export const extractFields = async (html: string): Promise<Record<string, any>> => {
     const $ = cheerio.load(html);
 

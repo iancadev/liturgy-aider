@@ -1,0 +1,26 @@
+.two-column-container, .two-column-divided-container { 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-items: stretch;
+}
+
+.two-column-container div, .two-column-divided-container div {
+    float: left;
+    text-align: left;
+}
+
+.two-column-container {
+    gap: 3em;
+}
+
+.two-column-divided-container { 
+    gap: 1.5em;
+}
+
+.two-column-divided-container > div.divider {
+    border-right: 0.12em solid grey;
+    margin: 0.8em 0px;
+}
+
+

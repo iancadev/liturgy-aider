@@ -14,6 +14,8 @@ import { redirect } from '@sveltejs/kit';
 import { readFile } from 'node:fs/promises';
 import { resolveImgs, checkSyntax, splitByPageBreaks } from '$lib/server/htmlProcessing';
 
+import { compileHTML } from '$lib/server/htmlCompiling';
+
 
 export const load: PageServerLoad = async ({ cookies, depends }) => {
     depends("watch:html_file");
@@ -24,6 +26,8 @@ export const load: PageServerLoad = async ({ cookies, depends }) => {
     let html = await readFile(html_file, 'utf-8');
 
     html = await resolveImgs(html, html_file);
+
+    html = compileHTML(html);
     let pages = splitByPageBreaks(html);
 
     return { pages, syntaxErrors: checkSyntax(html) }

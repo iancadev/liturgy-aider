@@ -24,6 +24,7 @@
 
 <svelte:head>
     <link rel="stylesheet" href="/preview.css" />
+    <link rel="stylesheet" href="/variant-keywords.css" />
 </svelte:head>
 
 <a class="landing" href="/">Menu</a>
