@@ -46,6 +46,8 @@
 
                     for (const img of el.querySelectorAll("img")) {
                         const htmlImg = img as HTMLImageElement;
+                        if (!htmlImg.getAttribute("is")) continue;
+                        
                         htmlImg.addEventListener("load", () => {
                             requestAnimationFrame(relayout);
                         });
