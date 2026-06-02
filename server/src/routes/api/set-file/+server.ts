@@ -3,7 +3,5 @@ export async function POST({ request, cookies }) {
 
     cookies.set('html_file', html_file, { path: '/'});
 
-    console.log(cookies.get('html_file'));
-
     return new Response("All good", { status: 201 });
 }

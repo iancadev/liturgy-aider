@@ -196,7 +196,6 @@ export async function processSplitImages(
     });
 
     const images = $("img[split]").toArray();
-    console.log("Num split images:", images.length);
 
     for (const img of images) {
         const $img = $(img);

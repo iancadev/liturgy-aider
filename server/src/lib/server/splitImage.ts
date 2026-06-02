@@ -19,14 +19,12 @@ export async function splitImage(
     splitPoint: number
 ): Promise<SplitResult | null> {
     const exists = await fileExists(src);
-    console.log(exists, "exists", src);
     if (!(await fileExists(src)) ||
         src.startsWith("http://") ||
         src.startsWith("https://") ||
         src.startsWith("data:")) {
         return null;
     }
-    console.log("file exists", await fileExists(src))
 
     const image = sharp(src);
 
@@ -68,7 +66,6 @@ export async function splitImage(
 
     for (let y = 0; y < height; y++) {
         if (whiteRows[y]) {
-            console.log(y);
             if (start === null) {
                 start = y;
             }
@@ -87,9 +84,6 @@ export async function splitImage(
             end: height - 1
         });
     }
-
-    console.log(regions);
-    console.log("Num regions:", regions.length);
 
     if (splitPoint < 0 || splitPoint >= regions.length) {
         return null;
