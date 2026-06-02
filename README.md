@@ -31,4 +31,5 @@ These include
  - `scale="?"`: scales the relative font-size of an element.
  - `two-column` or `two-column-divided`: splits 
  - for `pre` elements: `indent="?"` will put spaces before any lower-case line (except the first line)
- - (TO-DO): `split="?"`
+ - for local images: `split="n"` will split the image by the nth horizontal white region counting from the top (0 will usually be the margin at the top).
+   - NOTE: if you aren't seeing a change in the image, it may be due to browser cache; just reload the page.

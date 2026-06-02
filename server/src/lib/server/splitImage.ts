@@ -18,9 +18,15 @@ export async function splitImage(
     src: string,
     splitPoint: number
 ): Promise<SplitResult | null> {
-    if (!(await fileExists(src))) {
+    const exists = await fileExists(src);
+    console.log(exists, "exists", src);
+    if (!(await fileExists(src)) ||
+        src.startsWith("http://") ||
+        src.startsWith("https://") ||
+        src.startsWith("data:")) {
         return null;
     }
+    console.log("file exists", await fileExists(src))
 
     const image = sharp(src);
 
@@ -34,7 +40,7 @@ export async function splitImage(
     const whiteRows: boolean[] = [];
 
     for (let y = 0; y < height; y++) {
-        let isWhite = true;
+        let isWhite = width;
 
         for (let x = 0; x < width; x++) {
             const idx = (y * width + x) * channels;
@@ -44,13 +50,15 @@ export async function splitImage(
             const b = data[idx + 2];
 
             // tolerate tiny compression / conversion errors
-            if (r < 250 || g < 250 || b < 250) {
-                isWhite = false;
-                break;
+            if (r < 235 || g < 235 || b < 235) {
+                isWhite -= 1;
+                // break;
             }
         }
 
-        whiteRows.push(isWhite);
+        let fraction = isWhite / width;
+
+        whiteRows.push(fraction > 0.95);
     }
 
     // Group consecutive white rows into regions.
@@ -60,6 +68,7 @@ export async function splitImage(
 
     for (let y = 0; y < height; y++) {
         if (whiteRows[y]) {
+            console.log(y);
             if (start === null) {
                 start = y;
             }
@@ -79,11 +88,14 @@ export async function splitImage(
         });
     }
 
-    if (splitPoint < 1 || splitPoint > regions.length) {
+    console.log(regions);
+    console.log("Num regions:", regions.length);
+
+    if (splitPoint < 0 || splitPoint >= regions.length) {
         return null;
     }
 
-    const region = regions[splitPoint - 1];
+    const region = regions[splitPoint];
 
     const cutY = Math.floor((region.start + region.end) / 2);
 

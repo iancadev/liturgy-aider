@@ -20,7 +20,8 @@ export const resolveImgs = async (
             src.startsWith("http://") ||
             src.startsWith("https://") ||
             src.startsWith("file://") ||
-            src.startsWith("data:")
+            src.startsWith("data:") ||
+            src.startsWith("/")
         ) {
             continue;
         }
@@ -90,7 +91,7 @@ export const extractFields = async (html: string): Promise<Record<string, any>> 
 
         let value: string | undefined;
         let preview: string | undefined;
-        
+
         switch (el.tagName) {
             case "img":
                 value = $(el).attr("src") ?? undefined;

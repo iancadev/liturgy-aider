@@ -1,4 +1,5 @@
 import * as cheerio from "cheerio";
+import { splitImage } from "$lib/server/splitImage";
 
 const processTwoCols = (html: string): string => {
     const $ = cheerio.load(html, {
@@ -65,6 +66,7 @@ const processTwoCols = (html: string): string => {
     return $.html();
 };
 
+
 const processPre = (html: string): string => {
     const $ = cheerio.load(html, {
         decodeEntities: false
@@ -112,6 +114,7 @@ const processPre = (html: string): string => {
     return $.html();
 }
 
+
 const processScale = (html: string): string => {
     const $ = cheerio.load(html, {
         decodeEntities: false
@@ -155,8 +158,133 @@ const processScale = (html: string): string => {
 };
 
 
-export const compileHTML = (html: string): string => {
+function pruneAfter(
+    node: cheerio.Cheerio<any>,
+    root: cheerio.Cheerio<any>
+) {
+    let cur = node;
+
+    while (cur.length && cur[0] !== root[0]) {
+        const parent = cur.parent();
+
+        cur.nextAll().remove();
+
+        cur = parent;
+    }
+}
+
+function pruneBefore(
+    node: cheerio.Cheerio<any>,
+    root: cheerio.Cheerio<any>
+) {
+    let cur = node;
+
+    while (cur.length && cur[0] !== root[0]) {
+        const parent = cur.parent();
+
+        cur.prevAll().remove();
+
+        cur = parent;
+    }
+}
+
+export async function processSplitImages(
+    html: string
+): Promise<string> {
+    const $ = cheerio.load(html, {
+        decodeEntities: false
+    });
+
+    const images = $("img[split]").toArray();
+    console.log("Num split images:", images.length);
+
+    for (const img of images) {
+        const $img = $(img);
+
+        const splitPoint = Number($img.attr("split"));
+        const src = $img.attr("src");
+
+        if (!src || !Number.isFinite(splitPoint)) {
+            continue;
+        }
+
+        const root = $img.parents("div[is]").first();
+
+        if (!root.length) {
+            continue;
+        }
+
+        const split = await splitImage(src, splitPoint);
+
+        if (!split) {
+            continue;
+        }
+
+        const rootIs = root.attr("is");
+        if (!rootIs) {
+            continue;
+        }
+
+        const topRoot = root.clone(true, true);
+        const bottomRoot = root.clone(true, true);
+
+        topRoot.attr("is", `${rootIs}-1`);
+        bottomRoot.attr("is", `${rootIs}-2`);
+
+        const imagePath: number[] = [];
+
+        let cur: cheerio.Element | undefined = img;
+
+        while (cur && cur !== root[0]) {
+            const parent = cur.parent;
+
+            if (!parent) {
+                break;
+            }
+
+            imagePath.unshift(
+                parent.children.indexOf(cur)
+            );
+
+            cur = parent;
+        }
+
+        const getNodeByPath = (
+            rootEl: cheerio.Cheerio<any>
+        ) => {
+            let node = rootEl[0];
+
+            for (const idx of imagePath) {
+                node = node.children[idx] as cheerio.Element;
+            }
+
+            return $(node);
+        };
+
+        const topImg = getNodeByPath(topRoot);
+        const bottomImg = getNodeByPath(bottomRoot);
+
+        topImg.attr("src", split.top);
+        topImg.removeAttr("split");
+
+        bottomImg.attr("src", split.bottom);
+        bottomImg.removeAttr("split");
+
+        pruneAfter(topImg, topRoot);
+        pruneBefore(bottomImg, bottomRoot);
+
+        root.replaceWith(
+            `${$.html(topRoot)}<hr>${$.html(bottomRoot)}`
+        );
+    }
+
+    return $.html();
+}
+
+
+export const compileHTML = async (html: string): string => {
     html = processTwoCols(html);
     html = processPre(html);
+    html = await processSplitImages(html);
     return processScale(html);
 };
