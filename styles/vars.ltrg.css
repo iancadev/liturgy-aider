@@ -1,0 +1,8 @@
+:root {
+    --header-size: 20px;
+}
+
+div.DisplayPage {
+    padding-left: 0.5in;
+    padding-right: 0.5in;
+}

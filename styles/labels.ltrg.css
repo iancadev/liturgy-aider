@@ -1,0 +1,5 @@
+div p[is="label"] {
+    font-size: 15px;
+    float: left;
+    text-decoration: underline;
+}

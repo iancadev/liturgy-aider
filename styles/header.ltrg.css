@@ -1,0 +1,30 @@
+div[is="header"] {
+    text-align: left;
+}
+
+div[is="header"] img {
+    float: left;
+    width: 80px;
+
+    margin-right: 10px;
+    margin-top: -20px;
+}
+
+div[is="header"] p {
+    float: left;
+    font-weight: bold;
+}
+
+div[is="header"] p[is="mass"] {
+    float: right;
+    font-weight: 400;
+    font-style: italic;
+    text-decoration: underline;
+}
+
+div[is="header"] p[is="prelude"] {
+    float: left;
+    font-weight: 400;
+    font-style: italic;
+    margin-left: 0.25in;
+}

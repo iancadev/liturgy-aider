@@ -1,0 +1,26 @@
+div[is^="hymn"] p[is="title"] {
+    border: 1px solid black;
+    margin: 0 0.5in;
+    font-size: 15px;
+    text-align: left;
+    padding: 3px 3px 0px 3px;
+}
+
+div[is^="hymn"] img[is="hymn"] {
+    margin-top: 5px;
+}
+
+
+
+div[is^="hymn"] [pre][is="chant"] {
+    margin: 20px 0.25in;
+    margin-left: 0.75in;
+    float: left;
+    font-size: 2em;
+}
+
+div[is^="hymn"] img[is="chant"] {
+    float: right;
+    margin-top: 5px;
+    margin-right: 0.75in;
+}
