@@ -129,6 +129,36 @@ export const extractFields = async (html: string): Promise<Record<string, any>> 
     return fields;
 };
 
-export const splitByPageBreaks = (html: string): string[] => {
-    return html.split(/<hr\b[^>]*\/?>/i);
-}
+export const splitByPageBreaks = (
+    html: string
+): {
+    pages: string[];
+    normalSplits: boolean[];
+} => {
+    const hrRegex = /(<hr\b[^>]*\/?>)/gi;
+
+    const parts = html.split(hrRegex);
+
+    const pages: string[] = [];
+    const normalSplits: boolean[] = [];
+
+    let current = parts[0] ?? "";
+
+    for (let i = 1; i < parts.length; i += 2) {
+        const hr = parts[i];
+        const next = parts[i + 1] ?? "";
+
+        pages.push(current);
+
+        normalSplits.push(!/\bimageBreak\b/i.test(hr));
+
+        current = next;
+    }
+
+    pages.push(current);
+
+    return {
+        pages,
+        normalSplits
+    };
+};

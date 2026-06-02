@@ -2,8 +2,12 @@
     import DisplayPage from "./DisplayPage.svelte";
     let { data } = $props();
 
-    const timers = new Map<number, number>();    
-    function send(element:HTMLButtonElement, index: number, direction: string) {
+    const timers = new Map<number, number>();
+    function send(
+        element: HTMLButtonElement,
+        index: number,
+        direction: string,
+    ) {
         element.disabled = true;
 
         clearTimeout(timers.get(index));
@@ -20,6 +24,20 @@
             }, 100),
         );
     }
+
+    let displayButton = (i) => {
+        return data.normalSplits[i] || i >= data.normalSplits.length;
+    };
+
+    let buttonIndices = $derived.by(() => {
+        const arr = [];
+        let j = 0;
+        for (let i = 0; i < data.pages.length; i++) {
+            if (displayButton(i)) arr.push(j++);
+            else arr.push(-1);
+        }
+        return arr;
+    });
 </script>
 
 <svelte:head>
@@ -33,18 +51,26 @@
         <div
             style="width: 100%; height: 50px; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid grey;"
         >
-            <p style="color: red;">Make sure to set Margins in your print settings to None!</p>
+            <p style="color: red;">
+                Make sure to set Margins in your print settings to None!
+            </p>
         </div>
     </div>
     {#each data.pages as page, i}
         <DisplayPage>
             {@html page}
         </DisplayPage>
-        <div class="PageBreakButtons">
-            <button onclick={() => send(this, i, "up")}>↑↑↑↑</button>
-            <small>(page break)</small>
-            <button onclick={() => send(this, i, "down")}>↓↓↓↓</button>
-        </div>
+        {#if displayButton(i)}
+            <div class="PageBreakButtons">
+                <button onclick={() => send(this, buttonIndices[i], "up")}>↑↑↑↑</button>
+                <small>(page break)</small>
+                <button onclick={() => send(this, buttonIndices[i], "down")}>↓↓↓↓</button>
+            </div>
+        {:else}
+            <div class="PageBreakButtons">
+                <small>(image split)</small>
+            </div>
+        {/if}
     {/each}
 </div>
 

@@ -274,7 +274,7 @@ export async function processSplitImages(
         pruneBefore(bottomImg, bottomRoot);
 
         root.replaceWith(
-            `${$.html(topRoot)}<hr>${$.html(bottomRoot)}`
+            `${$.html(topRoot)}<hr imageBreak>${$.html(bottomRoot)}`
         );
     }
 
