@@ -6,7 +6,7 @@
 
     let page: HTMLDivElement;
 
-    const {
+    let {
         Inches,
         Image_Font,
         IDEAL_FONT,
@@ -47,18 +47,24 @@
                     for (const img of el.querySelectorAll("img")) {
                         const htmlImg = img as HTMLImageElement;
                         if (!htmlImg.getAttribute("is")) continue;
-                        
-                        htmlImg.addEventListener("load", () => {
-                            requestAnimationFrame(relayout);
-                        });
+
+                        if (!htmlImg.dataset.relayoutListener) {
+                            htmlImg.dataset.relayoutListener = "1";
+
+                            htmlImg.addEventListener("load", () => {
+                                queueRelayout();
+                            });
+                        }
 
                         htmlImg.dataset.baseWidth = String(
                             htmlImg.naturalWidth || htmlImg.width,
                         );
 
-                        const imageScaling = (htmlImg.getAttribute("scale") && !isNaN(htmlImg.getAttribute("scale")))
-                            ? parseFloat(htmlImg.getAttribute("scale"))
-                            : 1;
+                        const imageScaling =
+                            htmlImg.getAttribute("scale") &&
+                            !isNaN(htmlImg.getAttribute("scale"))
+                                ? parseFloat(htmlImg.getAttribute("scale"))
+                                : 1;
 
                         const baseWidth = Number(htmlImg.dataset.baseWidth);
                         const desiredWidth =
@@ -123,17 +129,30 @@
         apply();
     }
 
-    onMount(() => {
-        const mo = new MutationObserver(() => {
-            requestAnimationFrame(relayout);
+    let relayoutQueued = false;
+
+    function queueRelayout() {
+        if (relayoutQueued) return;
+
+        relayoutQueued = true;
+
+        requestAnimationFrame(() => {
+            relayoutQueued = false;
+            relayout();
         });
+    }
+
+    onMount(() => {
+        const mo = new MutationObserver(queueRelayout);
 
         mo.observe(page, {
             childList: true,
             subtree: true,
+            attributes: false,
+            characterData: false,
         });
 
-        requestAnimationFrame(relayout);
+        queueRelayout();
 
         return () => mo.disconnect();
     });
