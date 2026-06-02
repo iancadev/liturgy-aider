@@ -1,6 +1,7 @@
 import path from 'node:path';
 import fs from 'node:fs/promises';
 import { access } from 'node:fs/promises';
+import { compileHTML } from './htmlCompiling';
 
 export function srcToLocalPath(src: string, HTML_FILE?: string): string {
     // Example:
@@ -94,6 +95,64 @@ export async function getStylesheets(
 
             result.push(`/project-styles/${relative}`);
         }
+    }
+
+    return result;
+}
+
+
+type ToolkitFile = {
+    fileName: string;
+    htmlContent: string;
+    htmlSnippet: string;
+};
+
+async function findHtmlFiles(dir: string): Promise<string[]> {
+    const entries = await fs.readdir(dir, { withFileTypes: true });
+
+    const results: string[] = [];
+
+    for (const entry of entries) {
+        const fullPath = path.join(dir, entry.name);
+
+        if (entry.isDirectory()) {
+            results.push(...await findHtmlFiles(fullPath));
+        } else if (entry.isFile() && entry.name.endsWith(".html")) {
+            results.push(fullPath);
+        }
+    }
+
+    return results;
+}
+
+export async function fetchToolkit(): Promise<
+    Record<string, ToolkitFile[]>
+> {
+    const toolkitDir = path.resolve("../toolkit");
+
+    const result: Record<string, ToolkitFile[]> = {};
+
+    const folders = await fs.readdir(toolkitDir, {
+        withFileTypes: true
+    });
+
+    for (const folder of folders) {
+        if (!folder.isDirectory()) continue;
+
+        const folderPath = path.join(toolkitDir, folder.name);
+        const htmlFiles = await findHtmlFiles(folderPath);
+
+        result[folder.name] = await Promise.all(
+            htmlFiles.map(async (filePath) => {
+                const htmlSnippet = await fs.readFile(filePath, "utf8");
+
+                return {
+                    fileName: path.relative(folderPath, filePath),
+                    htmlSnippet,
+                    htmlContent: await compileHTML(htmlSnippet)
+                };
+            })
+        );
     }
 
     return result;

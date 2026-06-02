@@ -281,7 +281,7 @@ export async function processSplitImages(
 }
 
 
-export const compileHTML = async (html: string): string => {
+export const compileHTML = async (html: string): Promise<string> => {
     html = processTwoCols(html);
     html = processPre(html);
     html = await processSplitImages(html);

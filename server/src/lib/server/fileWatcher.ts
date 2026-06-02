@@ -27,6 +27,31 @@ watchStyles();
 
 
 
+export const toolkitEvent = new EventEmitter();
+
+export const toolkitDir = path.resolve('../toolkit');
+
+let toolkitWatcher: fs.FSWatcher | undefined;
+
+export function watchToolkit() {
+    toolkitWatcher?.close();
+
+    toolkitWatcher = fs.watch(toolkitDir, { recursive: true }, (event, filename) => {
+        if (!filename) return;
+
+        if (path.extname(filename) === ".html") {
+            toolkitEvent.emit("changed", {
+                event,
+                filename
+            });
+        }
+    });
+}
+
+watchToolkit();
+
+
+
 export const htmlFileEvent = new EventEmitter();
 
 let watcher: fs.FSWatcher | undefined;

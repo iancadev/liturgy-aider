@@ -8,6 +8,7 @@
 
 	let es: EventSource | null = null;
 	let es2: EventSource | null = null;
+	let es3: EventSource | null = null;
 
 	function startStreams() {
 		// HTML watcher (now tied to cookie via server-provided data.html_file)
@@ -22,6 +23,13 @@
 		es2.onmessage = async () => {
 			await invalidate("watch:html_file");
 		};
+
+		es3?.close();
+		es3 = new EventSource("/api/watch-toolkit");
+		es3.onmessage = async () => {
+			console.log("invalidating watch:toolkit");
+			await invalidate("watch:toolkit");
+		};
 	}
 
 	// restart streams whenever html_file changes
@@ -34,6 +42,7 @@
 		return () => {
 			es?.close();
 			es2?.close();
+			es3?.close();
 		};
 	});
 </script>

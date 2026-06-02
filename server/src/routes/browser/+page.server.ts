@@ -1,7 +1,9 @@
-/*
+import { fetchToolkit } from "$lib/server/file";
 
-Fetch all the files in the re-use folder
-
-Compile them into an HTML JSON (to render + offer copy-paste)
-
-*/
+export const load = async ({ depends }) => {
+    depends('watch:toolkit');
+    const toolkit = await fetchToolkit();
+    return { 
+        toolkit
+    };
+}

@@ -7,7 +7,7 @@ export const handle: Handle = async ({ event, resolve }) => {
     const { pathname } = event.url;
 
     // allow public root route
-    if (pathname === '/' || pathname.startsWith('/api')) {
+    if (pathname === '/' || pathname.startsWith('/browser') || pathname.startsWith('/api')) {
         return resolve(event);
     }
 

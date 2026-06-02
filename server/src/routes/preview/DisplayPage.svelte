@@ -18,12 +18,13 @@
         IDEAL_PADDING,
         MAX_PADDING,
         MIN_PADDING,
+        PADDING_X
     } = CONFIG;
 
     const PAGE_WIDTH = 8.5 * Inches;
     const PAGE_HEIGHT = 11 * Inches;
 
-    const MAX_WIDTH = PAGE_WIDTH - 2 * 0.2 * Inches;
+    const MAX_WIDTH = PAGE_WIDTH - 2 * PADDING_X;
 
     function relayout() {
         if (!page) return;
@@ -158,7 +159,10 @@
     });
 </script>
 
-<div class="DisplayPage" bind:this={page}>
+<div class="DisplayPage" bind:this={page} style={`
+    padding-left: ${PADDING_X}px;
+    padding-right: ${PADDING_X}px;
+`}>
     {@render children()}
 </div>
 

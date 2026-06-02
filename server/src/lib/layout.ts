@@ -13,5 +13,7 @@ export const CONFIG = {
 
     IDEAL_GAP: 0.2 * Inches,
     MIN_GAP: 0.05 * Inches,
-    MAX_GAP: 2 * Inches
+    MAX_GAP: 2 * Inches,
+
+    PADDING_X: 0.5 * Inches
 }
