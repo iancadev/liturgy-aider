@@ -22,3 +22,13 @@
     border-right: 0.12em solid grey;
     margin: 0.8em 0px;
 }
+
+
+
+img[split-top]::after {
+    content: '→';
+    font-size: 3em;
+    position: absolute;
+    bottom: 0px;
+    right: -4em;
+}

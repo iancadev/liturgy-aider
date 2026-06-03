@@ -265,6 +265,7 @@ export async function processSplitImages(
 
         topImg.attr("src", split.top);
         topImg.removeAttr("split");
+        topImg.attr("split-top", "");
 
         bottomImg.attr("src", split.bottom);
         bottomImg.removeAttr("split");
