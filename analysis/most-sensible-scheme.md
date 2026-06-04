@@ -72,6 +72,13 @@ The issues with the above syntax:
 
 As a general rule, if you ever need to insert generic text, use `<text />`.
 
+ - `div[is=textmatter]`
+   - `p[is=title]`
+   - `p[is=hnj]`
+   - `p[is=mass]`
+   - `p[is=prelude]`
+   - `img` (letterhead)
+   - `p[is=license]`
  - `div[is=hymn]`
    - `h*`
    - `pre`
@@ -97,7 +104,7 @@ As a general rule, if you ever need to insert generic text, use `<text />`.
    - `caption`
 
 Now, with this system, we *could* make each of the `h*` have different styles
- - h1: box
+ - h1: box (full-width only for is=hymn, is=chant)
  - h2: Main + underlined
  - h3: bold, not underlined
  - h4: large italic
