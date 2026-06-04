@@ -93,23 +93,23 @@ As a general rule, if you ever need to insert generic text, use `<text />`.
    - `img`
  - `div[is=reading]`
    - `h*`
-   - `label`
+   - `subtitle`
    - `pre`
  - `div[is=prayer]`
    - `h*`
    - `pre`
- - `div[is=marker]` | `div[is=marker.music]`
-   - `h*`
+ - `div[is=marker]` | `div[is=marker.music]` (no `h*`, right???)
    - `p`
-   - `caption`
+   - `pre`
+   - `subtitle`
 
 Now, with this system, we *could* make each of the `h*` have different styles
  - h1: box (full-width only for is=hymn, is=chant)
  - h2: Main + underlined
  - h3: bold, not underlined
  - h4: large italic
- - h5: smaller italic
- - h6: smaller italic + underlined
+ - h5: smaller italic + underlined
+ - h6: smaller italic
 
 
 ### `tags`
@@ -129,6 +129,7 @@ Node layout tags:
  - `shrink` (horizontal width)
  - `expand`
  - (indent and scale tags)
+ - (two-column, three-column)
 
 Node tuning tags:
  - font-narrow

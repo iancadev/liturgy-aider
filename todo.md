@@ -12,5 +12,7 @@ Also:
 - [ ] Clear the static/generated-images on project quit?
 - [ ] Make the CSS field selectors use numbers if the is="???" is not unique
 - [ ] Show the code for reference in the browser (don't have to copy-paste)
+- [ ] Left-quote, right-quote?
+- [ ] Make ! ignored or not in the browser (using a checkbox)
 
 Final nuclear option: just ask Codex to identify and patch bugs / flimsiness in the architecture.
