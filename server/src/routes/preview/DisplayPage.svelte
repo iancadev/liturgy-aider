@@ -47,7 +47,8 @@
 
                     for (const img of el.querySelectorAll("img")) {
                         const htmlImg = img as HTMLImageElement;
-                        if (!htmlImg.getAttribute("is")) continue;
+
+                        if (htmlImg.hasAttribute("deco")) continue;
 
                         if (!htmlImg.dataset.relayoutListener) {
                             htmlImg.dataset.relayoutListener = "1";

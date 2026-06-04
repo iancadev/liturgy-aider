@@ -1,0 +1,52 @@
+@layer system {
+    h1 {
+        padding: 2px 4px;
+        font-size: 1.5em;
+        font-weight: 400;
+        border: 1px solid black;
+    }
+
+    div[is^="hymn"] h1, div[is^="chant"] h1 {
+        width: 100%;
+        text-align: left;
+    }
+
+    h2 {
+        font-weight: 400;
+        text-decoration: underline;
+        font-size: 1.5em;
+    }
+
+    h4, h5, h6 {
+        font-style: italic;
+        font-weight: 400;
+    }
+
+    h4 {
+        font-size: 1.3em;
+    }
+
+    h5, h6 {
+        font-size: 1em;
+    }
+
+    subtitle {
+        font-size: 1em;
+    }
+
+    div[is^="marker"] {
+        font-style: italic;
+    }
+
+    div[is^="marker"] p {
+        font-size: 1.4em;
+    }
+    div[is^="marker"] subtitle, div[is^="marker"] p[pre] {
+        font-size: 1em;
+    }
+
+    div[is^="prayer"] {
+        font-style: italic;
+        letter-spacing: 0.03em;
+    }
+}

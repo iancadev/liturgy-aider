@@ -63,6 +63,7 @@ The issues with the above syntax:
     * Does the tag separation make the CSS rules simple? Or tangled?
     * Are Tailwind classes able to successfully override any of the other styles appearing in the whole project... ?
 
+> don't use tailwind. it won't generate the classes.
 
 ---
 
@@ -140,8 +141,9 @@ Node tuning tags:
  - font-sans-bold
  - underline
 
-### Tailwind adjustment
+### Manual style adjustment
  - `margin-?-[?px]`
  - `font-[?em]`
  - `padding-?-[?px]`
  - `tracking-[?em]`
+ - line-height
