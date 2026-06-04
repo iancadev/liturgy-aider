@@ -88,6 +88,7 @@ export async function splitImage(
     if (splitPoint < 0 || splitPoint >= regions.length) {
         return null;
     }
+    console.log(regions);
 
     const region = regions[splitPoint];
 

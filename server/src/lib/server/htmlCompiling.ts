@@ -219,17 +219,8 @@ export async function processSplitImages(
             continue;
         }
 
-        const rootIs = root.attr("is");
-        if (!rootIs) {
-            continue;
-        }
-
         const topRoot = root.clone(true, true);
         const bottomRoot = root.clone(true, true);
-
-        topRoot.attr("is", `${rootIs}-1`);
-        bottomRoot.attr("is", `${rootIs}-2`);
-
         const imagePath: number[] = [];
 
         let cur: cheerio.Element | undefined = img;

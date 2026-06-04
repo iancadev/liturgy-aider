@@ -14,9 +14,10 @@ export const load: PageServerLoad = async ({ cookies, depends }) => {
 
     let html = await readFile(html_file, 'utf-8');
 
-    html = await compileHTML(html);
-
     html = await resolveImgs(html, html_file);
+
+    html = await compileHTML(html);
+    
     let { pages, normalSplits } = splitByPageBreaks(html);
 
     return { pages, normalSplits, syntaxErrors: checkSyntax(html) }
