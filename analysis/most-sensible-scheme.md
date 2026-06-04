@@ -64,3 +64,76 @@ The issues with the above syntax:
     * Are Tailwind classes able to successfully override any of the other styles appearing in the whole project... ?
 
 
+---
+
+## Grouping in more detail
+
+### `is`
+
+As a general rule, if you ever need to insert generic text, use `<text />`.
+
+ - `div[is=hymn]`
+   - `h*`
+   - `pre`
+   - `img`
+ - `div[is=chant]`
+   - `h*`
+   - `img`
+   - `pre` | `p`
+ - `div[is=response]`
+   - `h*`
+   - `pre`
+   - `img`
+ - `div[is=reading]`
+   - `h*`
+   - `label`
+   - `pre`
+ - `div[is=prayer]`
+   - `h*`
+   - `pre`
+ - `div[is=marker]` | `div[is=marker.music]`
+   - `h*`
+   - `p`
+   - `caption`
+
+Now, with this system, we *could* make each of the `h*` have different styles
+ - h1: box
+ - h2: Main + underlined
+ - h3: bold, not underlined
+ - h4: large italic
+ - h5: smaller italic
+ - h6: smaller italic + underlined
+
+
+### `tags`
+
+Container layout tags (these are just flex-box shorthands):
+ - `vertical` (automatically centers)
+ - `vertical-left` (justifies left)
+ - `horizontal`
+ - `horizontal-center`
+ - `horizontal-spacing`
+ - `corner`
+
+Node layout tags:
+ - `left`
+ - `center`
+ - `right`
+ - `shrink` (horizontal width)
+ - `expand`
+ - (indent and scale tags)
+
+Node tuning tags:
+ - font-narrow
+ - font-serif
+ - font-bold
+ - font-italic
+ - font-sans
+ - font-sans-bold
+ - underline
+
+### Tailwind adjustment
+ - `margin-?-[?px]`
+ - `font-[?em]`
+ - `padding-?-[?px]`
+ - `tracking-[?em]`
