@@ -1,7 +1,7 @@
 Outstanding tasks list:
 
 Somewhat important for text-setting:
-- [ ] Three-column layout
+- [x] Three-column layout
 - [ ] Two-tier indent (for numbered verses + lines inside verse)
 - [ ] Make the preview update if any of the referenced images update.
 - [ ] Tailwind styles (for customization --- style classes should propagate)

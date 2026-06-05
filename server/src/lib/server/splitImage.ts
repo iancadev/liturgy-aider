@@ -88,7 +88,6 @@ export async function splitImage(
     if (splitPoint < 0 || splitPoint >= regions.length) {
         return null;
     }
-    console.log(regions);
 
     const region = regions[splitPoint];
 
@@ -107,7 +106,6 @@ export async function splitImage(
 
     const topPath = path.join(GENERATED_DIR, topFile);
     const bottomPath = path.join(GENERATED_DIR, bottomFile);
-    console.log(topPath, bottomPath);
 
     if (!(await fileExists(topPath))) {
         await sharp(src)

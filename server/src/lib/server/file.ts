@@ -1,7 +1,7 @@
 import path from 'node:path';
 import fs from 'node:fs/promises';
 import { access } from 'node:fs/promises';
-import { compileHTML } from './htmlCompiling';
+import { compileHTML } from './compile';
 
 export function dirname(src: string): string {
     return path.dirname(src);
