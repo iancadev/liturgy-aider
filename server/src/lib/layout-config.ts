@@ -6,8 +6,8 @@ const Inches = 96; // pixels
 
 
 export const config = writable({
-    IDEAL_FONT: 10,
-    MIN_FONT: 7,
+    IDEAL_FONT: 12,
+    MIN_FONT: 9,
     MAX_FONT: 12,
 
     IDEAL_PADDING: 1 * Inches,

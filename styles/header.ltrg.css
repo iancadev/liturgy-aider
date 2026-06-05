@@ -13,6 +13,7 @@
     div[is^="header"] *[is="title"] {
         font-size: 3em;
         font-weight: bold;
+        width: 100%;
     }
 
 

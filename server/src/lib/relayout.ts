@@ -31,6 +31,7 @@ export function relayout(page: HTMLElement, queueRelayout: ()=>null) {
     if (items.length === 0) return;
 
     let font = IDEAL_FONT;
+    let image_font = IDEAL_FONT;
     let padding = IDEAL_PADDING;
     let gap = IDEAL_GAP;
 
@@ -72,7 +73,7 @@ export function relayout(page: HTMLElement, queueRelayout: ()=>null) {
 
                     const baseWidth = Number(htmlImg.dataset.baseWidth);
                     const desiredWidth =
-                        (baseWidth * font * imageScaling) / imageFont;
+                        0.7 * (baseWidth * image_font * imageScaling) / imageFont;
 
                     htmlImg.style.width = `${Math.min(desiredWidth, MAX_WIDTH)}px`;
                     htmlImg.style.height = "auto";
@@ -101,9 +102,12 @@ export function relayout(page: HTMLElement, queueRelayout: ()=>null) {
     if (h > PAGE_HEIGHT) {
         gap = MIN_GAP;
         padding = MIN_PADDING;
-        font = IDEAL_FONT;
+        image_font = font = IDEAL_FONT;
         while (h > PAGE_HEIGHT && its++ < 100) {
-            font -= 0.25;
+            if (font > MIN_FONT) {
+                font -= 0.25;
+            }
+            image_font -= 0.25;
             h = measureHeight();
         }
     }
@@ -113,6 +117,7 @@ export function relayout(page: HTMLElement, queueRelayout: ()=>null) {
     while (h < PAGE_HEIGHT && its++ < 100) {
         if (font < IDEAL_FONT) {
             font += 0.25;
+            image_font += 0.25;
         } else if (padding < IDEAL_PADDING) {
             padding += 0.01;
         } else if (gap < IDEAL_GAP) {
