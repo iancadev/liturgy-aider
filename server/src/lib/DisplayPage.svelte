@@ -15,7 +15,7 @@
 
         requestAnimationFrame(() => {
             relayoutQueued = false;
-            relayout(page);
+            relayout(page, queueRelayout);
         });
     }
 

@@ -14,20 +14,7 @@ export interface SplitResult {
     bottom: string;
 }
 
-export async function splitImage(
-    src: string,
-    splitPoint: number
-): Promise<SplitResult | null> {
-    const exists = await fileExists(src);
-    if (!(await fileExists(src)) ||
-        src.startsWith("http://") ||
-        src.startsWith("https://") ||
-        src.startsWith("data:")) {
-        return null;
-    }
-
-    const image = sharp(src);
-
+async function getRegions(image): Promise<{ start: number, end: number }[]> {
     const { data, info } = await image
         .ensureAlpha()
         .raw()
@@ -56,7 +43,7 @@ export async function splitImage(
 
         let fraction = isWhite / width;
 
-        whiteRows.push(fraction > 0.95);
+        whiteRows.push(fraction > 0.99);
     }
 
     // Group consecutive white rows into regions.
@@ -84,6 +71,75 @@ export async function splitImage(
             end: height - 1
         });
     }
+
+    return regions;
+}
+
+
+export async function estimateFont(src: string, percentile: number=0.3): Promise<number> {
+    const exists = await fileExists(src);
+    if (!(await fileExists(src)) ||
+        src.startsWith("http://") ||
+        src.startsWith("https://") ||
+        src.startsWith("data:")) {
+        return null;
+    }
+
+    const image = sharp(src);
+
+    let regions = await getRegions(image);
+
+    let deltas = [];
+    for (let i = 0; i < regions.length - 1; i++) {
+        deltas.push(regions[i+1].start - regions[i].end);
+    }
+    deltas.sort((a, b) => a - b);
+
+    // estimate based on clef-height (about 4.3x the size of the font)
+    return Math.max(...deltas) / 4.3;
+
+    // console.log(src);
+    // console.log(deltas);
+    // console.log(deltas[Math.floor(deltas.length * percentile)]);
+
+    // const max = Math.max(...deltas);
+    // let filtered = deltas.filter((v) => {
+    //     if ((0.2*max < v) && (v < 0.5*max)) return true;
+    //     return;
+    // })
+    // console.log(filtered);
+
+    // let average = 0;
+    // for (const v of filtered) average += v / filtered.length;
+
+    // console.log(average);
+    // if (average) return average;
+    // return deltas[Math.floor(deltas.length * percentile)];
+}
+
+
+export async function splitImage(
+    src: string,
+    splitPoint: number
+): Promise<SplitResult | null> {
+    const exists = await fileExists(src);
+    if (!(await fileExists(src)) ||
+        src.startsWith("http://") ||
+        src.startsWith("https://") ||
+        src.startsWith("data:")) {
+        return null;
+    }
+
+    const image = sharp(src);
+
+    const { data, info } = await image
+        .ensureAlpha()
+        .raw()
+        .toBuffer({ resolveWithObject: true });
+
+    const { width, height, channels } = info;
+
+    let regions = await getRegions(image);
 
     if (splitPoint < 0 || splitPoint >= regions.length) {
         return null;

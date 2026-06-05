@@ -6,8 +6,6 @@ const Inches = 96; // pixels
 
 
 export const config = writable({
-    Image_Font: 100, // height of text in pixels
-
     IDEAL_FONT: 10,
     MIN_FONT: 7,
     MAX_FONT: 12,

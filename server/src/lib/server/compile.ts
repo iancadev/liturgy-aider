@@ -8,13 +8,16 @@ import { imgAbsolutePaths, resolveImgs } from "./htmlProcessing";
 import { processCols } from "./compiling/columns";
 import { processPretext } from "./compiling/pretext";
 import { processScale } from "./compiling/scale";
+import { estimateFontHeights } from "./compiling/fontEstimates";
 import { splitImages } from "./compiling/imageSplits";
 import { autofillContent } from "./compiling/autofill";
 
 
 export const compileHTML = async (html: string): Promise<string> => {
+    // to-do: use Cheerio to decode only once.
     html = processCols(html);
     html = processPretext(html);
+    html = await estimateFontHeights(html);
     html = await splitImages(html);
     html = autofillContent(html);
     return processScale(html);

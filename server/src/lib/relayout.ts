@@ -6,10 +6,10 @@ const CONFIG = get(config);
 const Inches = 96;
 const PAGE_WIDTH = 8.5 * Inches;
 const PAGE_HEIGHT = 11 * Inches;
+const Image_Font = 100;
 
-export function relayout(page: HTMLElement) {
+export function relayout(page: HTMLElement, queueRelayout: ()=>null) {
     let {
-        Image_Font,
         IDEAL_FONT,
         MIN_FONT,
         MAX_FONT,
@@ -65,9 +65,12 @@ export function relayout(page: HTMLElement) {
                             ? parseFloat(htmlImg.getAttribute("scale"))
                             : 1;
 
+                    const _fontEstimate = htmlImg.getAttribute("fontEstimate");
+                    let imageFont = _fontEstimate && !isNaN(_fontEstimate) ? parseFloat(_fontEstimate) : Image_Font;
+
                     const baseWidth = Number(htmlImg.dataset.baseWidth);
                     const desiredWidth =
-                        (baseWidth * font * imageScaling) / Image_Font;
+                        (baseWidth * font * imageScaling) / imageFont;
 
                     htmlImg.style.width = `${Math.min(desiredWidth, MAX_WIDTH)}px`;
                     htmlImg.style.height = "auto";
