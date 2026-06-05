@@ -37,6 +37,8 @@ export function relayout(page: HTMLElement, queueRelayout: ()=>null) {
     function apply() {
         page.style.setProperty("--page-gap", `${gap}px`);
         page.style.setProperty("--page-padding", `${padding}px`);
+        page.style.paddingLeft = `${PADDING_X}px`;
+        page.style.paddingRight = `${PADDING_X}px`;
 
         for (const el of items) {
             if (el.hasAttribute("is")) {
@@ -94,29 +96,27 @@ export function relayout(page: HTMLElement, queueRelayout: ()=>null) {
 
     let h = measureHeight();
 
+    let its = 0;
     // overflow
-    while (h > PAGE_HEIGHT) {
-        if (gap > MIN_GAP) {
-            gap -= 1;
-        } else if (padding > MIN_PADDING) {
-            padding -= 1;
-        } else if (font > MIN_FONT) {
+    if (h > PAGE_HEIGHT) {
+        gap = MIN_GAP;
+        padding = MIN_PADDING;
+        font = IDEAL_FONT;
+        while (h > PAGE_HEIGHT && its++ < 100) {
             font -= 0.25;
-        } else {
-            break;
+            h = measureHeight();
         }
-
-        h = measureHeight();
     }
 
     // underflow
-    while (h < PAGE_HEIGHT) {
+    its = 0;
+    while (h < PAGE_HEIGHT && its++ < 100) {
         if (font < IDEAL_FONT) {
             font += 0.25;
         } else if (padding < IDEAL_PADDING) {
-            padding += 1;
+            padding += 0.01;
         } else if (gap < IDEAL_GAP) {
-            gap += 1;
+            gap += 0.05;
         } else {
             break;
         }

@@ -58,7 +58,6 @@
         display: flex;
         justify-content: center;
         flex-direction: column;
-        gap: 50px;
     }
 
     .DisplayPage {

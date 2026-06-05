@@ -14,5 +14,6 @@ Also:
 - [ ] Show the code for reference in the browser (don't have to copy-paste)
 - [ ] Left-quote, right-quote?
 - [ ] Make ! ignored or not in the browser (using a checkbox)
+- [ ] Make getRegions use MD5 caching
 
 Final nuclear option: just ask Codex to identify and patch bugs / flimsiness in the architecture.
