@@ -1,11 +1,7 @@
 import * as cheerio from "cheerio";
 import { copyAttributes } from "./utils";
 
-export const processPretext = (html: string): string => {
-    const $ = cheerio.load(html, {
-        decodeEntities: false
-    });
-
+export const processPretext = ($: cheerio.CheerioAPI) => {
     $("pre").each((_, pre) => {
         const $pre = $(pre);
 
@@ -40,6 +36,4 @@ export const processPretext = (html: string): string => {
         copyAttributes($pre, $p, ["indent"]);
         $pre.replaceWith($p);
     });
-
-    return $.html();
 }

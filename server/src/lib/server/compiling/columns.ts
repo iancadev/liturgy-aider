@@ -108,11 +108,7 @@ const divideEl = ($, $el: cheerio.Cheerio<Element>, splits: number = 2, divider:
 };
 
 
-export const processCols = (html: string): string => {
-    const $ = cheerio.load(html, {
-        decodeEntities: false
-    });
-
+export const processCols = ($: cheerio.CheerioAPI) => {
     for (const attr of ["two-column", "two-column-divided"]) {
         $(`[${attr}]`).each((_, el) => {
             const $el = $(el);
@@ -133,6 +129,4 @@ export const processCols = (html: string): string => {
             divideEl($, $el, 4, attr.endsWith("-divided"));
         });
     }
-
-    return $.html();
 };

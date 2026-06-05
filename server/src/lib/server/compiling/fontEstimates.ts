@@ -2,11 +2,7 @@ import { estimateFont } from "$lib/server/splitImage";
 import * as cheerio from "cheerio";
 
 
-export async function estimateFontHeights(html: string): Promise<string> {
-    const $ = cheerio.load(html, {
-        decodeEntities: false
-    });
-
+export async function estimateFontHeights($: cheerio.CheerioAPI) {
     const images = $("img:not([deco])").toArray();
 
     for (const img of images) {
@@ -27,6 +23,4 @@ export async function estimateFontHeights(html: string): Promise<string> {
         const fontEstimate = await estimateFont(src);
         $img.attr('fontEstimate', `${fontEstimate}`);
     }
-
-    return $.html()
 }

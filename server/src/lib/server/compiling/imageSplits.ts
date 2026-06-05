@@ -32,12 +32,8 @@ function pruneBefore(
 }
 
 export async function splitImages(
-    html: string
-): Promise<string> {
-    const $ = cheerio.load(html, {
-        decodeEntities: false
-    });
-
+    $: cheerio.CheerioAPI
+) {
     const images = $("img[split]").toArray();
 
     for (const img of images) {
@@ -111,6 +107,4 @@ export async function splitImages(
             `${$.html(topRoot)}<hr imageBreak>${$.html(bottomRoot)}`
         );
     }
-
-    return $.html();
 }

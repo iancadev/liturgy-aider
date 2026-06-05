@@ -1,10 +1,6 @@
 import * as cheerio from "cheerio";
 
-export const processScale = (html: string): string => {
-    const $ = cheerio.load(html, {
-        decodeEntities: false
-    });
-
+export const processScale = ($: cheerio.CheerioAPI) => {
     $("[scale]").each((_, el) => {
         const $el = $(el);
 
@@ -38,6 +34,4 @@ export const processScale = (html: string): string => {
 
         $el.removeAttr("scale");
     });
-
-    return $.html();
 };

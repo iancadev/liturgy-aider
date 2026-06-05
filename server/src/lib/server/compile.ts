@@ -14,13 +14,20 @@ import { autofillContent } from "./compiling/autofill";
 
 
 export const compileHTML = async (html: string): Promise<string> => {
-    // to-do: use Cheerio to decode only once.
-    html = processCols(html);
-    html = processPretext(html);
-    html = await estimateFontHeights(html);
-    html = await splitImages(html);
-    html = autofillContent(html);
-    return processScale(html);
+    const $ = cheerio.load(html, {
+        decodeEntities: false
+    });
+
+    console.log("compiling");
+    processCols($);
+    processPretext($);
+    await estimateFontHeights($);
+    await splitImages($);
+    autofillContent($);
+    processScale($);
+    console.log("done");
+    
+    return $.html();
 };
 
 export const compileHTMLFile = async (html_file: string): Promise<string> => {

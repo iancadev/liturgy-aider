@@ -1,10 +1,6 @@
 import * as cheerio from "cheerio";
 
-export const autofillContent = (html: string): string => {
-    const $ = cheerio.load(html, {
-        decodeEntities: false
-    });
-
+export const autofillContent = ($: cheerio.CheerioAPI) => {
     function setNodesIfBlank(
         nodes: cheerio.Cheerio<any>,
         text: string
@@ -30,6 +26,4 @@ export const autofillContent = (html: string): string => {
         $(`[is="LICENSE"]`),
         "Hymns and responses reprinted with permission under OneLicense.net A-725664"
     );
-
-    return $.html();
 };
