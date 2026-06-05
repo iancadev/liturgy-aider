@@ -1,5 +1,5 @@
 <script lang="ts">
-    import DisplayPage from "./DisplayPage.svelte";
+    import DisplayPage from "$lib/DisplayPage.svelte";
     let { data } = $props();
 
     const timers = new Map<number, number>();
@@ -41,8 +41,7 @@
 </script>
 
 <svelte:head>
-    <link rel="stylesheet" href="/preview.css" />
-    <link rel="stylesheet" href="/modifier-keywords.css" />
+    <link rel="stylesheet" href="/printability.css" />
 </svelte:head>
 
 <a class="landing" href="/">Menu</a>

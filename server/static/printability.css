@@ -1,15 +1,5 @@
 div.DisplayPage {
-    width: 8.5in;
     height: 11in;
-    border: 2px solid black;
-    margin: 0.5in auto;
-    text-align: center;
-    background: #f4f4f9;
-
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    gap: 50px;
 }
 
 div#first-page-reminder {

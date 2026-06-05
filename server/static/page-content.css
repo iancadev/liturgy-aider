@@ -1,3 +1,44 @@
+/*
+Some default font settings to simplify the layout
+These can be overridden by project-styles.
+*/
+
+@layer link {
+    body {
+        font-family: serif;
+        line-height: 1;
+    }
+
+    img {
+        float: auto;
+    }
+    
+    div[is] h1 { font-size: 2em; }
+    div[is] h2 { font-size: 1.5em; }
+    div[is] h3 { font-size: 1.17em; }
+    div[is] h4 { font-size: 1em; }
+    div[is] h5 { font-size: 0.83em; }
+    div[is] h6 { font-size: 0.67em; }
+
+    div[is] p { font-size: 1em; }
+
+    div[is] h1,
+    div[is] h2,
+    div[is] h3,
+    div[is] h4,
+    div[is] h5,
+    div[is] h6,
+    div[is] p {
+        margin: 0;
+    }
+}
+
+
+
+/*
+Foundational layer for layout and font attributes to work
+*/
+
 @layer system {
     .n-column-container, .n-column-divided-container { 
         display: flex;

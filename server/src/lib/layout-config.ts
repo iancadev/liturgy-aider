@@ -1,9 +1,14 @@
-const Inches = 96;
-export const CONFIG = {
-    Inches: 96, // pixels
+// layout-config.ts
+import { writable } from "svelte/store";
+
+
+const Inches = 96; // pixels
+
+
+export const config = writable({
     Image_Font: 100, // height of text in pixels
 
-    IDEAL_FONT: 11.5,
+    IDEAL_FONT: 10,
     MIN_FONT: 7,
     MAX_FONT: 12,
 
@@ -16,4 +21,4 @@ export const CONFIG = {
     MAX_GAP: 2 * Inches,
 
     PADDING_X: 0.5 * Inches
-}
+});

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import DisplayPage from "../preview/DisplayPage.svelte";
+    import DisplayPage from "$lib/DisplayPage.svelte";
 
     let { data } = $props();
 
@@ -13,10 +13,6 @@
         await navigator.clipboard.writeText(text);
     }
 </script>
-
-<svelte:head>
-    <link rel="stylesheet" href="/browser.css" />
-</svelte:head>
 
 <div class="layout">
     <aside>

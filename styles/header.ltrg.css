@@ -1,22 +1,22 @@
 @layer project {
-    div[is^="textmatter"] {
+    div[is^="header"] {
         text-align: left;
         min-width: 7in;
     }
 
-    div[is^="textmatter"] img {
+    div[is^="header"] img {
         float: left;
         height: 5lh;
         margin-right: 10px;
     }
 
-    div[is^="textmatter"] *[is="title"] {
+    div[is^="header"] *[is="title"] {
         font-size: 3em;
         font-weight: bold;
     }
 
 
-    div[is^="textmatter"] img {
+    div[is^="header"] img {
         margin-left: 0px;
     }
 
@@ -25,12 +25,12 @@
         font-weight: bold;
     }
     
-    div[is^="textmatter"] p[is^="HNJ"] {
+    div[is^="header"] p[is^="HNJ"] {
         float: left;
         font-weight: bold;
     }
 
-    div[is^="textmatter"] p[is^="mass"] {
+    div[is^="header"] p[is^="mass"] {
         float: right;
         font-weight: 400;
         font-style: italic;
