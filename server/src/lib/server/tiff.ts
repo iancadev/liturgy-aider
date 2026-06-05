@@ -42,16 +42,7 @@ export async function convertTiffToPng(src: string): Promise<string> {
 }
 
 export async function serveLocal(src: string): Promise<string> {
-    // Already browser-accessible
-    if (
-        src.startsWith("http://") ||
-        src.startsWith("https://") ||
-        src.startsWith("data:") ||
-        src.startsWith("/")
-    ) {
-        return src;
-    }
-
+    // Assume src is an absolute path on disk
     if (!(await fileExists(src))) {
         return "https://placehold.co/600x400";
     }

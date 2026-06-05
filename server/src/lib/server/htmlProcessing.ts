@@ -1,33 +1,74 @@
 import * as cheerio from 'cheerio';
 import * as path from "path";
+import { cwd } from "node:process";
 import { isTiffSrc, convertTiffToPng, serveLocal } from '$lib/server/tiff';
+import { fileExists } from './file';
 
 
-export const resolveImgs = async (
+export const imgAbsolutePaths = async (
     html: string,
-    html_file: string
+    html_dir: string
 ): Promise<string> => {
     const $ = cheerio.load(html);
-
-    const htmlDir = path.dirname(html_file);
 
     for (const el of $("img[src]").toArray()) {
         const src = $(el).attr("src");
         if (!src) continue;
 
-        // Skip already-absolute URLs and data URIs
         if (
             src.startsWith("http://") ||
             src.startsWith("https://") ||
             src.startsWith("file://") ||
-            src.startsWith("data:") ||
-            src.startsWith("/")
+            src.startsWith("data:")
         ) {
             continue;
         }
 
-        const absolutePath = path.resolve(htmlDir, src);
+        const filesystemPath = path.resolve(html_dir, src);
+        // const staticPath = path.resolve(cwd(), "static", src.replace(/^\/+/, ""));
 
+        if (await fileExists(filesystemPath))
+            $(el).attr("src", filesystemPath);
+        // else if (await fileExists(staticPath))
+        //    $(el).attr("src", staticPath);
+        else
+            $(el).attr("src", "https://placehold.co/600x400");
+    }
+
+    return $.html();
+}
+
+
+
+export const resolveImgs = async (
+    html: string,
+    html_dir: string
+): Promise<string> => {
+    const $ = cheerio.load(html);
+
+    for (const el of $("img[src]").toArray()) {
+        let src = $(el).attr("src");
+        if (!src) continue;
+
+        // If the img already is online, we don't have to do anything
+        if (
+            src.startsWith("http://") ||
+            src.startsWith("https://") ||
+            src.startsWith("data:")
+        ) {
+            continue;
+        }
+
+        // If the img doesn't exist locally, there is nothing we can do.
+        // if (src.startsWith("file://")) src = src.slice("file://".length);
+        const absolutePath = path.resolve(html_dir, src);
+        if (!await fileExists(absolutePath)) {
+            $(el).attr("src", "https://placehold.co/599x399");
+            continue;
+        }
+
+        // If the img is a .tif file, we need to convert it
+        // Otherwise, we just need to put it in the static directory
         if (isTiffSrc(absolutePath)) {
             const newSrc = await convertTiffToPng(absolutePath);
             $(el).attr("src", newSrc);

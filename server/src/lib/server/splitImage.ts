@@ -107,6 +107,7 @@ export async function splitImage(
 
     const topPath = path.join(GENERATED_DIR, topFile);
     const bottomPath = path.join(GENERATED_DIR, bottomFile);
+    console.log(topPath, bottomPath);
 
     if (!(await fileExists(topPath))) {
         await sharp(src)
@@ -133,7 +134,7 @@ export async function splitImage(
     }
 
     return {
-        top: `/generated-images/${topFile}`,
-        bottom: `/generated-images/${bottomFile}`
+        top: topPath,
+        bottom: bottomPath
     };
 }

@@ -3,7 +3,12 @@ import fs from 'node:fs/promises';
 import { access } from 'node:fs/promises';
 import { compileHTML } from './htmlCompiling';
 
-export function srcToLocalPath(src: string, HTML_FILE?: string): string {
+export function dirname(src: string): string {
+    return path.dirname(src);
+}
+
+
+export function srcToLocalPath(src: string, HTML_DIR?: string): string {
     // Example:
     // <img src="/images/foo.tif">
     // resolves to static/images/foo.tif
@@ -14,8 +19,8 @@ export function srcToLocalPath(src: string, HTML_FILE?: string): string {
     // Example:
     // <img src="./foo.tif">
     // resolves relative to the HTML file
-    if (HTML_FILE) {
-        return path.resolve(path.dirname(HTML_FILE), src);
+    if (HTML_DIR) {
+        return path.resolve(HTML_DIR, src);
     }
 
     return "https://placehold.co/600x400"
