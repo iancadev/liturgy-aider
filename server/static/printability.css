@@ -1,39 +1,47 @@
-div.DisplayPage {
-    height: 11in;
-}
-
-div#first-page-reminder {
-    width: 8.5in;
-    height: 11in;
-    text-align: center;
-    visibility: hidden;
-    display: none;
-}
-
-
-@media print {
-    body * {
-        visibility: hidden;
-    }
-
-    div.PrintPages,
-    div.PrintPages * {
-        visibility: visible;
-    }
-
-    div.PrintPages {
-        position: absolute;
-        left: 0;
-        top: 0;
-    }
-
+@layer base {
     div.DisplayPage {
-        border: 0;
-        margin: 0;
+        height: 11in;
     }
 
     div#first-page-reminder {
-        visibility: visible;
-        display: block;
+        width: 8.5in;
+        height: 11in;
+        text-align: center;
+        visibility: hidden;
+        display: none;
+    }
+
+
+    @media print {
+        body * {
+            visibility: hidden;
+        }
+
+        div.PrintPages,
+        div.PrintPages * {
+            visibility: visible;
+        }
+
+        div.PrintPages {
+            position: absolute;
+            display: block;
+            left: 0;
+            top: 0;
+        }
+
+        div.DisplayPage {
+            border: 0;
+            margin: 0;
+        }
+
+        div#first-page-reminder {
+            visibility: visible;
+            display: block;
+        }
+
+        div.PageBreakButtons {
+            display: none;
+            background: red;
+        }
     }
 }
