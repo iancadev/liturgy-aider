@@ -56,7 +56,7 @@
         background: #f4f4f9;
 
         display: flex;
-        justify-content: center;
+        justify-content: space-evenly;
         flex-direction: column;
     }
 

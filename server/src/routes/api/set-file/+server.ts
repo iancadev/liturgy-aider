@@ -1,5 +1,7 @@
 export async function POST({ request, cookies }) {
-    const { html_file } = await request.json();
+    let { html_file } = await request.json();
+
+    html_file = html_file.replace(/^"+|"+$/g, '');
 
     cookies.set('html_file', html_file, { path: '/'});
 
