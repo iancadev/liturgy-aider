@@ -2,7 +2,7 @@
 
 ### How it works
 
-Open a terminal, `cd server`, and `npm run dev`.
+Open a terminal, `cd server`, `npm install` and `npm run dev`.
 
 Set the HTML file you are editing at [localhost:5173/](localhost:5173/).
 
