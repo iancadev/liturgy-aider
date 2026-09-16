@@ -10,6 +10,7 @@ Send over as JSON
 
 import type { PageServerLoad } from './$types';
 import { redirect } from '@sveltejs/kit';
+import { dirname } from '$lib/server/file';
 
 import { readFile } from 'node:fs/promises';
 import { extractFields, checkSyntax } from '$lib/server/htmlProcessing';
@@ -21,7 +22,8 @@ export const load: PageServerLoad = async ({ cookies, depends }) => {
 
     let html = await readFile(html_file, 'utf-8');
 
-    const fieldJSON = await extractFields(html);
+    const html_dir = dirname(html_file);
+    const fieldJSON = await extractFields(html, html_dir);
 
     return { fields: fieldJSON, syntaxErrors: checkSyntax(html) }
 }

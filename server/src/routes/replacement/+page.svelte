@@ -112,9 +112,9 @@
 
             if (filter.type === "element") {
                 if (filter.tag == "img")
-                    return /img\[is="([^"]+)"\]/g.test(key);
+                    return /img\[is="([^"]+)"\]/g.test(key) || /img/g.test(key);
                 if (filter.tag == "pre")
-                    return /pre\[is="([^"]+)"\]/g.test(key);
+                    return /pre\[is="([^"]+)"\]/g.test(key) || /pre/g.test(key);
                 return /(?:p|h1|h2|h3|h4|h5|h6|span)\[is="([^"]+)"\]/g.test(
                     key,
                 );

@@ -39,6 +39,29 @@ export const imgAbsolutePaths = async (
 }
 
 
+export const resolveImgSrc = async (
+    src: string,
+    html_dir: string
+): Promise<string> => {
+    if (
+        src.startsWith("http://") ||
+        src.startsWith("https://") ||
+        src.startsWith("file://") ||
+        src.startsWith("data:")
+    ) {
+        return src;
+    }
+
+    const filesystemPath = path.resolve(html_dir, src);
+
+    if (await fileExists(filesystemPath)) {
+        return filesystemPath;
+    } else {
+        return "https://placehold.co/600x400";
+    }
+}
+
+
 
 export const resolveImgs = async (
     html: string,
@@ -94,7 +117,8 @@ export const checkSyntax = async (html: string): Promise<string[]> => {
 
 
 
-export const extractFields = async (html: string): Promise<Record<string, any>> => {
+
+export const extractFields = async (html: string, html_dir: string): Promise<Record<string, any>> => {
     const $ = cheerio.load(html);
 
     const fields: Record<string, any> = {};
@@ -117,7 +141,8 @@ export const extractFields = async (html: string): Promise<Record<string, any>> 
     }
 
     // Extract text fields
-    for (const el of $("[is]").toArray()) {
+    for (const el of $("div[is] *").toArray()) {
+        if ($(el).attr("const") !== undefined) continue;
         const path = [
             ...$(el)
                 .parents("[is]")
@@ -127,7 +152,7 @@ export const extractFields = async (html: string): Promise<Record<string, any>> 
                     (parent) =>
                         `${parent.tagName}[is="${$(parent).attr("is")}"]`
                 ),
-            `${el.tagName}[is="${$(el).attr("is")}"]`
+            $(el).attr("is") ? `${el.tagName}[is="${$(el).attr("is")}"]` : el.tagName
         ];
 
         let value: string | undefined;
@@ -136,10 +161,11 @@ export const extractFields = async (html: string): Promise<Record<string, any>> 
         switch (el.tagName) {
             case "img":
                 value = $(el).attr("src") ?? undefined;
+                value = await resolveImgSrc(value, html_dir);
                 if (value && isTiffSrc(value)) {
                     preview = await convertTiffToPng(value);
                 } else {
-                    preview = value;
+                    preview = await serveLocal(value);
                 }
                 break;
 

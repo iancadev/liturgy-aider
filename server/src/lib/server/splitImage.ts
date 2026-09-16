@@ -21,6 +21,7 @@ async function getRegions(image, startLeft?:number): Promise<{ start: number, en
         .toBuffer({ resolveWithObject: true });
 
     const { width, height, channels } = info;
+    console.log(info);
 
     const whiteRows: boolean[] = [];
 
@@ -45,6 +46,8 @@ async function getRegions(image, startLeft?:number): Promise<{ start: number, en
         let fraction = isWhite / total;
 
         whiteRows.push(fraction > 0.95);
+
+        if (fraction > 0.95) console.log(y);
     }
 
     // Group consecutive white rows into regions.
