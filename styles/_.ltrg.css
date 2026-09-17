@@ -6,8 +6,12 @@
         border: 1px solid black;
     }
 
+    div[is^="hymn"] {
+        width: calc(100% - 10px);
+    }
+
     div[is^="hymn"] h1, div[is^="chant"] h1 {
-        width: 100%;
+        width: calc(100% - 30px);
         text-align: left;
     }
 
@@ -42,7 +46,7 @@
         font-size: 1.4em;
     }
     div[is^="marker"] subtitle, div[is^="marker"] p[pre] {
-        font-size: 1em;
+        font-size: 1.2em;
     }
 
     div[is^="prayer"] {

@@ -2,7 +2,7 @@
     import { onMount } from "svelte";
     import { relayout } from "$lib/relayout";
 
-    let { children } = $props();
+    let { config, children } = $props();
 
     let page: HTMLDivElement;
 
@@ -15,9 +15,14 @@
 
         requestAnimationFrame(() => {
             relayoutQueued = false;
-            relayout(page, queueRelayout);
+            relayout(page, config, queueRelayout);
         });
     }
+    
+    $effect(() => {
+        config;
+        queueRelayout();
+    });
 
     onMount(() => {
         const mo = new MutationObserver(queueRelayout);

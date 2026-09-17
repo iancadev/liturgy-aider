@@ -21,7 +21,7 @@ async function getRegions(image, startLeft?:number): Promise<{ start: number, en
         .toBuffer({ resolveWithObject: true });
 
     const { width, height, channels } = info;
-    console.log(info);
+    // console.log(info);
 
     const whiteRows: boolean[] = [];
 
@@ -47,7 +47,7 @@ async function getRegions(image, startLeft?:number): Promise<{ start: number, en
 
         whiteRows.push(fraction > 0.95);
 
-        if (fraction > 0.95) console.log(y);
+        // if (fraction > 0.95) console.log(y);
     }
 
     // Group consecutive white rows into regions.
@@ -159,12 +159,12 @@ export async function estimateFont(
         bestThreshold !== null &&
         bestGap > Math.max(2, meanDistance * 0.75);
 
-    console.log(src);
-    console.log("strokeWidths", strokeWidths);
-    console.log("distancesToNext", distancesToNext);
-    console.log("bestGap", bestGap);
-    console.log("bestThreshold", bestThreshold);
-    console.log("shouldSplit", shouldSplit);
+    // console.log(src);
+    // console.log("strokeWidths", strokeWidths);
+    // console.log("distancesToNext", distancesToNext);
+    // console.log("bestGap", bestGap);
+    // console.log("bestThreshold", bestThreshold);
+    // console.log("shouldSplit", shouldSplit);
 
     // ---------------------------------------------------------------------
     // Build groups
@@ -186,7 +186,7 @@ export async function estimateFont(
         ) {
             groups.push(currentGroup);
             currentGroup = strokeWidths[i];
-            console.log(groupInclusion);
+            // console.log(groupInclusion);
             groupInclusion = [ strokeWidths[i] ];
         } else {
             currentGroup += gap + strokeWidths[i];
@@ -196,7 +196,7 @@ export async function estimateFont(
 
     if (currentGroup > 0) {
         groups.push(currentGroup);
-        console.log(groupInclusion)
+        // console.log(groupInclusion)
     }
 
     if (groups.length === 0) {

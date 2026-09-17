@@ -57,9 +57,15 @@ export const htmlFileEvent = new EventEmitter();
 let watcher: fs.FSWatcher | undefined;
 
 export function watchHtmlFile(file: string) {
-    watcher?.close()
+    watcher?.close();
+
+    let timeout: NodeJS.Timeout | undefined;
 
     watcher = fs.watch(file, () => {
-        htmlFileEvent.emit("changed", file);
+        clearTimeout(timeout);
+
+        timeout = setTimeout(() => {
+            htmlFileEvent.emit("changed", file);
+        }, 100);
     });
 }

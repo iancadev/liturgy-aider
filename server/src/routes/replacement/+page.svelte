@@ -96,8 +96,13 @@
     });
 
     const maxHeight = $derived.by(() => {
-        if (filter.type === "element" && filter.tag == "img") return 400;
+        if (filter.type === "element" && filter.tag == "img") return 300;
         return 200;
+    });
+
+    const maxWidth = $derived.by(() => {
+        if (filter.type === "element" && filter.tag == "img") return 600;
+        return 400;
     });
 
     const visibleEntries = $derived.by(() => {
@@ -214,7 +219,7 @@
                                 {#if entries[key].preview}
                                     <img
                                         src={entries[key].preview}
-                                        style="max-height: {maxHeight}px"
+                                        style="max-height: {maxHeight}px; max-width: {maxWidth}px;"
                                         onclick={() => {
                                             textareas[key]?.focus();
                                             textareas[key]?.select();

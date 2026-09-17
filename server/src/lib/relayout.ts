@@ -1,136 +1,195 @@
 import { get } from "svelte/store";
-import { config } from "$lib/layout-config";
+const INCH = 96;
+const PAGE_WIDTH = 8.5 * INCH;
+const PAGE_HEIGHT = 11 * INCH;
+const IMAGE_FONT = 100;
 
-const CONFIG = get(config);
-
-const Inches = 96;
-const PAGE_WIDTH = 8.5 * Inches;
-const PAGE_HEIGHT = 11 * Inches;
-const Image_Font = 100;
-
-export function relayout(page: HTMLElement, queueRelayout: ()=>null) {
-    let {
-        IDEAL_FONT,
-        MIN_FONT,
-        MAX_FONT,
-        IDEAL_GAP,
-        MIN_GAP,
-        MAX_GAP,
-        IDEAL_PADDING,
-        MAX_PADDING,
-        MIN_PADDING,
-        PADDING_X,
-    } = CONFIG;
-    const MAX_WIDTH = PAGE_WIDTH - 2 * PADDING_X;
-
-
+export function relayout(
+    page: HTMLElement,
+    CONFIG,
+    queueRelayout: () => null
+) {
+    console.log(CONFIG);
     if (!page) return;
 
     const items = Array.from(page.children) as HTMLElement[];
+    if (!items.length) return;
 
-    if (items.length === 0) return;
+    const MAX_WIDTH = PAGE_WIDTH - 2 * CONFIG.PADDING_X;
 
-    let font = IDEAL_FONT;
-    let image_font = IDEAL_FONT;
-    let padding = IDEAL_PADDING;
-    let gap = IDEAL_GAP;
+    let font = CONFIG.IDEAL_FONT;
+
+    function getGap() {
+        return CONFIG.IDEAL_GAP + CONFIG.GAP_SCALE * font;
+    }
 
     function apply() {
-        page.style.setProperty("--page-gap", `${gap}px`);
-        page.style.setProperty("--page-padding", `${padding}px`);
-        page.style.paddingLeft = `${PADDING_X}px`;
-        page.style.paddingRight = `${PADDING_X}px`;
+        page.style.setProperty(
+            "--page-gap",
+            `${getGap()}px`
+        );
+
+        page.style.setProperty(
+            "--page-padding",
+            `${CONFIG.PADDING_Y}px`
+        );
+
+        page.style.paddingLeft = `${CONFIG.PADDING_X}px`;
+        page.style.paddingRight = `${CONFIG.PADDING_X}px`;
 
         for (const el of items) {
-            if (el.hasAttribute("is")) {
-                el.style.fontSize = `${font}px`;
+            if (!el.hasAttribute("is")) continue;
 
-                for (const img of el.querySelectorAll("img")) {
-                    const htmlImg = img as HTMLImageElement;
+            el.style.fontSize = `${font}px`;
 
-                    if (htmlImg.hasAttribute("deco")) continue;
+            for (const img of el.querySelectorAll("img")) {
+                const image = img as HTMLImageElement;
 
-                    if (!htmlImg.dataset.relayoutListener) {
-                        htmlImg.dataset.relayoutListener = "1";
+                if (image.hasAttribute("deco")) continue;
 
-                        htmlImg.addEventListener("load", () => {
-                            queueRelayout();
-                        });
-                    }
+                if (!image.dataset.relayoutListener) {
+                    image.dataset.relayoutListener = "1";
 
-                    htmlImg.dataset.baseWidth = String(
-                        htmlImg.naturalWidth || htmlImg.width,
-                    );
-
-                    const imageScaling =
-                        htmlImg.getAttribute("scale") &&
-                            !isNaN(htmlImg.getAttribute("scale"))
-                            ? parseFloat(htmlImg.getAttribute("scale"))
-                            : 1;
-
-                    const _fontEstimate = htmlImg.getAttribute("fontEstimate");
-                    let imageFont = _fontEstimate && !isNaN(_fontEstimate) ? parseFloat(_fontEstimate) : Image_Font;
-
-                    const baseWidth = Number(htmlImg.dataset.baseWidth);
-                    const desiredWidth =
-                        0.7 * (baseWidth * image_font * imageScaling) / imageFont;
-
-                    htmlImg.style.width = `${Math.min(desiredWidth, MAX_WIDTH)}px`;
-                    htmlImg.style.height = "auto";
+                    image.addEventListener("load", () => {
+                        queueRelayout();
+                    });
                 }
+
+                const baseWidth =
+                    image.naturalWidth || image.width;
+
+                const scale =
+                    Number(image.getAttribute("scale")) || 1;
+
+                const fontEstimate =
+                    Number(image.getAttribute("fontEstimate")) ||
+                    IMAGE_FONT;
+
+                const desiredWidth =
+                    0.7 *
+                    (baseWidth * font * scale) /
+                    fontEstimate;
+
+                image.style.width = `${Math.min(
+                    desiredWidth,
+                    MAX_WIDTH
+                )}px`;
+
+                image.style.height = "auto";
             }
         }
     }
 
-    function measureHeight() {
-        apply();
-
+    function getHeight() {
         return (
             items.reduce(
-                (sum, el) => sum + el.getBoundingClientRect().height,
-                0,
+                (sum, el) =>
+                    sum + el.getBoundingClientRect().height,
+                0
             ) +
-            2 * padding +
-            (items.length - 1) * gap
+            2 * CONFIG.PADDING_Y +
+            (items.length - 1) * getGap()
         );
     }
 
-    let h = measureHeight();
-
-    let its = 0;
-    // overflow
-    if (h > PAGE_HEIGHT) {
-        gap = MIN_GAP;
-        padding = MIN_PADDING;
-        image_font = font = IDEAL_FONT;
-        while (h > PAGE_HEIGHT && its++ < 100) {
-            if (font > MIN_FONT) {
-                font -= 0.25;
-            }
-            image_font -= 0.25;
-            h = measureHeight();
+    function getLeafNodes(root: HTMLElement): HTMLElement[] {
+        const children = Array.from(root.children) as HTMLElement[];
+        if (
+            root.tagName === "SCRIPT" ||
+            root.tagName === "STYLE"
+        ) {
+            return [];
         }
+
+        if (children.length === 0) {
+            return [root];
+        }
+
+        return children.flatMap(getLeafNodes);
     }
 
-    // underflow
-    its = 0;
-    while (h < PAGE_HEIGHT && its++ < 100) {
-        if (font < IDEAL_FONT) {
-            font += 0.25;
-            image_font += 0.25;
-        } else if (padding < IDEAL_PADDING) {
-            padding += 0.01;
-        } else if (gap < IDEAL_GAP) {
-            gap += 0.05;
-        } else {
+    function fitsVertically() {
+        const pageRect = page.getBoundingClientRect();
+
+        const top = pageRect.top + CONFIG.PADDING_Y;
+        const bottom = pageRect.bottom - CONFIG.PADDING_Y;
+
+        return items
+            .flatMap(getLeafNodes)
+            .every(el => {
+                const rect = el.getBoundingClientRect();
+
+                const fits =
+                    rect.top >= top &&
+                    rect.bottom <= bottom;
+
+                if (!fits) {
+                    console.log("VERTICAL FAIL", {
+                        el,
+                        top,
+                        bottom,
+                        elementTop: rect.top,
+                        elementBottom: rect.bottom
+                    });
+                }
+
+                return fits;
+            });
+    }
+
+    function fitsHorizontally() {
+        const pageRect = page.getBoundingClientRect();
+
+        const left = pageRect.left + CONFIG.PADDING_X;
+        const right = pageRect.right - CONFIG.PADDING_X;
+
+        return items
+            .flatMap(getLeafNodes)
+            .every(el => {
+                const rect = el.getBoundingClientRect();
+
+                const fits =
+                    rect.left >= left &&
+                    rect.right <= right;
+
+                if (!fits) {
+                    console.log("HORIZONTAL FAIL", {
+                        el,
+                        left,
+                        right,
+                        elementLeft: rect.left,
+                        elementRight: rect.right
+                    });
+                }
+
+                return fits;
+            });
+    }
+
+    function fits() {
+        apply();
+
+        return fitsVertically() && fitsHorizontally();
+    }
+
+
+    // First find a font size that fits.
+    while (
+        font > CONFIG.MIN_FONT &&
+        !fits()
+    ) {
+        font -= 0.25;
+    }
+
+    // Then increase the font as much as possible
+    // without violating either constraint.
+    while (font < CONFIG.MAX_FONT) {
+        font += 0.25;
+
+        if (!fits()) {
+            font -= 0.25;
             break;
         }
-
-        const next = measureHeight();
-
-        if (next > PAGE_HEIGHT) break;
-
-        h = next;
     }
 
     apply();

@@ -12,7 +12,7 @@ export function GET({ cookies }) {
 
     const stream = new ReadableStream({
         start(controller) {
-            const listener = () => {
+            listener = () => {
                 try {
                     controller.enqueue(
                         new TextEncoder().encode(

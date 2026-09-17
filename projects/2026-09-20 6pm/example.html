@@ -1,9 +1,24 @@
-<div is="header">
+<html><head><script id="layout-config">
+    ({
+        IDEAL_FONT: 12,
+        MIN_FONT: 8.,
+        MAX_FONT: 30,
+
+        IDEAL_GAP: 0.2 * 96,
+        GAP_SCALE: 0.1,
+
+        PADDING_Y: 0.2 * 96,
+        PADDING_X: 0.5 * 96,
+    })
+</script>
+
+
+</head><body><div is="header">
     <div horizontal="">
-        <img src="./resources/seal-logo.png" deco="" const>
+        <img src="resources\seal-logo.png" deco="" const="">
         <div expand="">
             <p is="title">Twenty-fifth Sunday in Ordinary Time</p>
-            <p is="HNJ" const></p>
+            <p is="HNJ" const=""></p>
             <p is="mass">6 PM Mass</p>
             <br>
             <p is="prelude">Prelude "Come, Holy Spirit, Lord God" Dieterich Buxtehude (1637-1707)</p>
@@ -26,13 +41,13 @@ from whatever tribulations
 I will give heed to them;
   and I will be their Lord for ever.
         </pre>
-        <img src="./resources/Introit - Salus populi.png" scale="6">
+        <img src="resources\Introit - Salus populi.png" scale="6">
     </div>
 </div>
 
 <div is="response.penitential" corner="">
-    <h2 const>Penitential Rite</h2>
-    <pre>I confess to almighty God and to you, my brothers and sisters, that I have greatly sinned,
+    <h2 const="">Penitential Rite</h2>
+    <pre scale="1.05">I confess to almighty God and to you, my brothers and sisters, that I have greatly sinned,
 in my thoughts and in my words, in what I have done and in what I have failed to do,
 through my fault, through my fault, through my most grievous fault;
 therefore I ask blessed Mary ever-Virgin, all the Angels and Saints, and you, my brothers and sisters, to pray for me to the Lord our God.
@@ -40,18 +55,18 @@ therefore I ask blessed Mary ever-Virgin, all the Angels and Saints, and you, my
 </div>
 
 <div is="response.kyrie" horizontal="" style="gap: 50px;">
-    <h2 const>Kyrie</h2>
-    <img src="./resources/kyrie.tif">
+    <h2 const="">Kyrie</h2>
+    <img src="resources/kyrie.tif">
 </div>
 
 <div is="response.gloria" horizontal="" style="gap: 50px;">
-    <h2 const>Gloria</h2>
+    <h2 const="">Gloria</h2>
     <img src="./resources/gloria (demo).tif" split="20">
 </div>
 
 <div is="reading.first" vertical="" style="gap: 0.5em">
     <div horizontal-bottom="" left="" style="gap: 0.5em">
-        <h2 const>First Reading</h2>
+        <h2 const="">First Reading</h2>
         <subtitle>(Acts 2:1-11)</subtitle>
     </div>
     <pre two-column="">When the time for Pentecost was fulfilled,
@@ -93,7 +108,7 @@ of the mighty acts of God."
 
 <div is="reading.second" vertical="">
     <div horizontal-bottom="">
-        <h2 const>Second Reading</h2>
+        <h2 const="">Second Reading</h2>
         <subtitle>(1 Corinthians 12:3b-7, 12-13)</subtitle>
     </div>
     <pre two-column="">Brothers and sisters:
@@ -119,13 +134,13 @@ and we were all given to drink of one Spirit.
 
 
 <div is="response.gospel" horizontal="">
-    <h3 const>Gospel<br>Acclamation</h3>
+    <h3 const="">Gospel<br>Acclamation</h3>
     <img src="./resources/alleluia.tif">
 </div>
 
 <div is="reading.gospel" vertical="">
     <div horizontal-bottom="">
-        <h2 const>Gospel</h2>
+        <h2 const="">Gospel</h2>
         <subtitle>(John 20:19-23)</subtitle>
     </div>
     <pre two-column="">On the evening of that first day of the week,
@@ -146,12 +161,12 @@ and whose sins you retain are retained."
 </div>
 
 <div is="marker.homily">
-    <p const>Homily + Profession of Faith</p>
+    <p const="">Homily + Profession of Faith</p>
 </div>
 
-<hr><div is="response.creed">
-    <h3 const>The Nicene Creed</h3>
-    <pre two-column="" const>I believe in one God, the Father almighty,
+<div is="response.creed">
+    <h3 const="">The Nicene Creed</h3>
+    <pre two-column="" const="">I believe in one God, the Father almighty,
 maker of heaven and earth,
 of all things visible and invisible.
 I believe in one Lord Jesus Christ,
@@ -181,6 +196,7 @@ and I look forward to the resurrection of the dead
 and the life of the world to come.  Amen.
     </pre>
 </div>
+<hr>
 
 <div is="marker.prayer">
     <p>Prayer of the Faithful + Offertory + Liturgy of the Eucharist</p>
@@ -193,30 +209,30 @@ and the life of the world to come.  Amen.
 </div>
 
 <div is="response.may" horizontal-center="">
-    <h2 const>May the Lord</h2>
-    <pre font-narrow="" const>        May the Lord accept the sacrifice at your hands, for the praise and glory of his name, for our good, and the good of all his holy Church.
+    <h2 const="">May the Lord</h2>
+    <pre font-narrow="" const="">        May the Lord accept the sacrifice at your hands, for the praise and glory of his name, for our good, and the good of all his holy Church.
     </pre>
 </div>
 
 <div is="response.preface" horizontal-center="">
-    <h2 const>Preface<br>Dialogue</h2>
+    <h2 const="">Preface<br>Dialogue</h2>
     <img src="./resources/preface.tif">
 </div>
 
 <div is="response.sanctus" horizontal-center="">
-    <h2 const>Sanctus</h2>
+    <h2 const="">Sanctus</h2>
     <img src="./resources/sanctus.png">
 </div>
 
 <div is="response.mystery" horizontal-center="">
-    <h2 const>Mystery<br>of Faith</h2>
+    <h2 const="">Mystery<br>of Faith</h2>
     <img src="./resources/mystery.png">
 </div>
 
 <div is="response.pater" corner="">
     <div vertical="">
-        <h2 const>Pater Noster</h2>
-        <subtitle const>("Our Father")</subtitle>
+        <h2 const="">Pater Noster</h2>
+        <subtitle const="">("Our Father")</subtitle>
     </div>
     <img src="./resources/pater.png" scale="4">
 </div>
@@ -224,29 +240,30 @@ and the life of the world to come.  Amen.
 
 
 <div is="prayer.deliver" horizontal="">
-    <pre const>Deliver us Lord from every evil, graciously grant peace in our day, that by the help of your mercy we may be always free from sin
+    <pre const="">Deliver us Lord from every evil, graciously grant peace in our day, that by the help of your mercy we may be always free from sin
 and safe from all distress, as we await the blessed hope, and the coming of our Savior, Jesus Christ.
     </pre>
 </div>
 
 <div is="response.for" horizontal="">
-    <h2 const>For the kingdom</h2>
+    <h2 const="">For the kingdom</h2>
     <img src="./resources/forthe.png">
 </div>
 
-<hr><div is="response.agnus" horizontal="">
+<div is="response.agnus" horizontal="">
     <div>
-        <h2 const>Agnus Dei</h2>
-        <subtitle const>("Lamb of God")</subtitle>
+        <h2 const="">Agnus Dei</h2>
+        <subtitle const="">("Lamb of God")</subtitle>
     </div>
-    <img src="./resources/agnus.png">
+    <img src="resources/agnus.png">
 </div>
 
-<div is="response.behold" horizontal-bottom="">
-    <h2 const>Behold the Lamb</h2>
-    <pre const> Lord, I am not worthy that you should enter under my roof, but only say the word and my soul shall be healed.
+<hr><div is="response.behold" horizontal-bottom="">
+    <h2 const="">Behold the Lamb</h2>
+    <pre const=""> Lord, I am not worthy that you should enter under my roof, but only say the word and my soul shall be healed.
     </pre>
 </div>
+
 
 <div is="hymn.communion">
     <h1>Communion Antiphon “They were all filled with the Holy Spirit”</h1>
@@ -276,15 +293,15 @@ who gives power and strength to his people.
 </div>
 
 <div is="response.regina" vertical-center="">
-    <h2 const>Regina Caeli</h2>
+    <h2 const="">Regina Caeli</h2>
     <img src="./resources/Salve Regina.png" scale="4">
-    <pre font-italic="" const>Queen of heaven, rejoice, alleluia. The Son you merited to bear, alleluia, has risen as he said, alleluia. Pray to God for us, alleluia
+    <pre font-italic="" const="">Queen of heaven, rejoice, alleluia. The Son you merited to bear, alleluia, has risen as he said, alleluia. Pray to God for us, alleluia
     </pre>
 </div>
 
 <div is="prayer.michael">
-    <h4 const>+ Prayer to Saint Michael the Archangel +</h4>
-    <pre const>"St. Michael the Archangel, defend us in battle. Be our protection against the wickedness and snares of the devil.
+    <h4 const="">+ Prayer to Saint Michael the Archangel +</h4>
+    <pre const="">"St. Michael the Archangel, defend us in battle. Be our protection against the wickedness and snares of the devil.
 May God rebuke him, we humbly pray; and do thou, O Prince of the heavenly hosts, by the power of God,
 cast into hell Satan and all the evil spirits who prowl about the world seeking the ruin of souls. Amen."
     </pre>
@@ -292,7 +309,7 @@ cast into hell Satan and all the evil spirits who prowl about the world seeking 
 
 <div is="hymn.closing">
     <h1>Closing Hymn “Come Down, O Love Divine"</h1>
-    <img src="./resources/Let All Things Now Living.png">
+    <img src="resources/Let All Things Now Living.png">
 </div>
 
 <div is="marker.music.postlude">
@@ -300,4 +317,4 @@ cast into hell Satan and all the evil spirits who prowl about the world seeking 
 </div>
 
 
-<p is="LICENSE" const></p>
+<p is="LICENSE" const=""></p>

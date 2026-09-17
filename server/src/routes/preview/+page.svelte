@@ -56,7 +56,7 @@
         </div>
     </div>
     {#each data.pages as page, i}
-        <DisplayPage>
+        <DisplayPage config={data.config} index={i}>
             {@html page}
         </DisplayPage>
         {#if displayButton(i)}

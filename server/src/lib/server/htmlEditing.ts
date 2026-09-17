@@ -5,6 +5,8 @@ function format(html: string): string {
     return html.replace('<html><head></head><body>', '').replace('</body></html>', '')
 }
 
+import path from "path";
+
 export async function editHtmlText(
     filePath: string,
     selector: string,
@@ -17,23 +19,54 @@ export async function editHtmlText(
     const elements = $(selector);
 
     if (elements.length === 0) {
-        // throw new Error(`No elements found for selector: ${selector}`);
         console.log(`No elements found for selector: ${selector}`);
         return;
     }
 
     if (index < 0 || index >= elements.length) {
-        // throw new Error(
-        //     `Index ${index} out of bounds. Found ${elements.length} elements.`
-        // );
         console.log(`Index ${index} out of bounds. Found ${elements.length} elements.`);
         return;
     }
 
     const el = elements.eq(index);
 
-    if ($(el).get(0).tagName == "img") {
-        $(el).attr("src", newText)
+    if ($(el).get(0).tagName === "img") {
+        // URLs, protocol-relative URLs, data URIs, fragments, etc.
+        const normalizedSrc = newText.replaceAll("\\", "/");
+
+        const isWindowsPath = /^[a-zA-Z]:[\\/]/.test(newText);
+
+        const isNonFilesystemSrc =
+            !isWindowsPath &&
+            /^(?:[a-z][a-z\d+.-]*:|\/\/|#)/i.test(normalizedSrc);
+
+        let src = normalizedSrc;
+
+        if (!isNonFilesystemSrc) {
+            // Explicitly use Windows path handling for Windows-style paths.
+            const isWindowsPath =
+                /^[a-zA-Z]:[\\/]/.test(newText) ||
+                /^[a-zA-Z]:[\\/]/.test(filePath);
+
+            const pathApi = isWindowsPath ? path.win32 : path;
+
+            const htmlDir = pathApi.dirname(filePath);
+            const absoluteSrc = pathApi.resolve(newText);
+            console.log(htmlDir);
+            console.log(absoluteSrc);
+            const relativeSrc = pathApi.relative(htmlDir, absoluteSrc);
+
+            const isInsideHtmlDir =
+                relativeSrc !== ".." &&
+                !relativeSrc.startsWith(`..${pathApi.sep}`) &&
+                !pathApi.isAbsolute(relativeSrc);
+
+            if (isInsideHtmlDir) {
+                src = relativeSrc.replaceAll(pathApi.sep, "/");
+            }
+        }
+
+        $(el).attr("src", src);
     } else {
         el.contents().filter((_, node) => node.type === "text").remove();
         el.append(newText);
@@ -41,7 +74,6 @@ export async function editHtmlText(
 
     await fs.writeFile(filePath, format($.html()), "utf-8");
 }
-
 
 
 export async function movePageBreak(
