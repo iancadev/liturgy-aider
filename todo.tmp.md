@@ -41,3 +41,4 @@ C) HTML_DIR and the HTTP/data/local image handling leaves much to be desired.
 7. Fix the selectors on /replacement to be slightly more useful?
 8. Let's really make a separate webpage for debugging the split image logic.
 9. Move-to resources directory + delete unused files command would be great
+10. It's a little annoying that the script got moved to <head>. Maybe we can just make a pre element that's handled during compilation.

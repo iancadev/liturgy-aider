@@ -53,4 +53,12 @@
         font-style: italic;
         letter-spacing: 0.03em;
     }
+
+    div[is^="reading"] p[pre] {
+        font-size: 1.2em;
+    }
+
+    p[is="LICENSE"] {
+        margin-top: -5px;
+    }
 }
