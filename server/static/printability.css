@@ -31,17 +31,18 @@
 
         div.DisplayPage {
             border: 0;
-            margin: 0;
+            margin: 0 !important;
         }
 
-        div#first-page-reminder {
+        /* div#first-page-reminder {
             visibility: visible;
             display: block;
-        }
+        } */
 
         div.PageBreakButtons,
         div.PageBreakButtons * {
             visibility: hidden !important;
+            display: none !important;
             background: red;
         }
     }

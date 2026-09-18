@@ -177,6 +177,7 @@ export const extractFields = async (html: string, html_dir: string): Promise<Rec
             case "h4":
             case "h5":
             case "h6":
+            case "subtitle":
             case "pre":
                 value = $(el)
                     .contents()

@@ -30,11 +30,13 @@ export async function editHtmlText(
 
     const el = elements.eq(index);
 
+    const cleanedText = newText.trim().replace(/^["']+|["']+$/g, "");
+
     if ($(el).get(0).tagName === "img") {
         // URLs, protocol-relative URLs, data URIs, fragments, etc.
-        const normalizedSrc = newText.replaceAll("\\", "/");
+        const normalizedSrc = cleanedText.replaceAll("\\", "/");
 
-        const isWindowsPath = /^[a-zA-Z]:[\\/]/.test(newText);
+        const isWindowsPath = /^[a-zA-Z]:[\\/]/.test(cleanedText);
 
         const isNonFilesystemSrc =
             !isWindowsPath &&
@@ -45,13 +47,13 @@ export async function editHtmlText(
         if (!isNonFilesystemSrc) {
             // Explicitly use Windows path handling for Windows-style paths.
             const isWindowsPath =
-                /^[a-zA-Z]:[\\/]/.test(newText) ||
+                /^[a-zA-Z]:[\\/]/.test(cleanedText) ||
                 /^[a-zA-Z]:[\\/]/.test(filePath);
 
             const pathApi = isWindowsPath ? path.win32 : path;
 
             const htmlDir = pathApi.dirname(filePath);
-            const absoluteSrc = pathApi.resolve(newText);
+            const absoluteSrc = pathApi.resolve(cleanedText);
             console.log(htmlDir);
             console.log(absoluteSrc);
             const relativeSrc = pathApi.relative(htmlDir, absoluteSrc);

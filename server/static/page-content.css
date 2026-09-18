@@ -116,8 +116,8 @@ Foundational layer for layout and font attributes to work
     div[vertical] {
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        align-items: flex-start;
+        justify-content: space-between;
+        align-items: center;
     }
 
     div[vertical-left] {

@@ -73,7 +73,7 @@
 
             // text elements
             for (const match of key.matchAll(
-                /(p|h1|h2|h3|h4|h5|h6|span)\[is="([^"]+)"\]/g,
+                /(p|h1|h2|h3|h4|h5|h6|span|subtitle)\[is="([^"]+)"\]/g,
             )) {
                 textElements.add(match[2]);
             }
@@ -120,14 +120,14 @@
                     return /img\[is="([^"]+)"\]/g.test(key) || /img/g.test(key);
                 if (filter.tag == "pre")
                     return /pre\[is="([^"]+)"\]/g.test(key) || /pre/g.test(key);
-                return /(?:p|h1|h2|h3|h4|h5|h6|span)\[is="([^"]+)"\]/g.test(
+                return /(?:p|h1|h2|h3|h4|h5|h6|span|subtitle)\[is="([^"]+)"\]/g.test(
                     key,
                 );
             }
 
             if (filter.type === "text") {
                 return (
-                    /(?:p|h1|h2|h3|h4|h5|h6|span)\[is="([^"]+)"\]/g.test(key) &&
+                    /(?:p|h1|h2|h3|h4|h5|h6|span|subtitle)\[is="([^"]+)"\]/g.test(key) &&
                     key.includes(`[is="${filter.is}"]`)
                 );
             }
