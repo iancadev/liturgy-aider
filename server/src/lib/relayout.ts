@@ -45,7 +45,7 @@ export function relayout(
             for (const img of el.querySelectorAll("img")) {
                 const image = img as HTMLImageElement;
 
-                if (image.hasAttribute("deco")) continue;
+                // if (image.hasAttribute("deco")) continue;
 
                 if (!image.dataset.relayoutListener) {
                     image.dataset.relayoutListener = "1";

@@ -96,9 +96,38 @@ export async function splitImages(
         topImg.attr("src", split.top);
         topImg.removeAttr("split");
         topImg.attr("split-top", "");
+        if (topImg.attr("top-style")) {
+            topImg.attr("style", topImg.attr("top-style"));
+            topImg.removeAttr("top-style");
+        }
+        if (topImg.attr("top-scale")) {
+            topImg.attr("scale", topImg.attr("top-scale"));
+            topImg.removeAttr("top-scale");
+        }
+        if (topImg.attr("bottom-style")) {
+            topImg.removeAttr("bottom-style");
+        }
+        if (topImg.attr("bottom-scale")) {
+            topImg.removeAttr("bottom-scale");
+        }
 
         bottomImg.attr("src", split.bottom);
         bottomImg.removeAttr("split");
+        bottomImg.attr("split-bottom", "");
+        if (bottomImg.attr("bottom-style")) {
+            bottomImg.attr("style", bottomImg.attr("bottom-style"));
+            bottomImg.removeAttr("bottom-style");
+        }
+        if (bottomImg.attr("bottom-scale")) {
+            bottomImg.attr("scale", bottomImg.attr("bottom-scale"));
+            bottomImg.removeAttr("bottom-scale");
+        }
+        if (bottomImg.attr("top-style")) {
+            bottomImg.removeAttr("top-style");
+        }
+        if (bottomImg.attr("top-scale")) {
+            bottomImg.removeAttr("top-scale");
+        }
 
         pruneAfter(topImg, topRoot);
         pruneBefore(bottomImg, bottomRoot);
