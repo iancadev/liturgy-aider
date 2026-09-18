@@ -6,8 +6,8 @@ div[is^="hymn"] p[is="title"] {
     padding: 3px 3px 0px 3px;
 }
 
-div[is^="hymn"] img[is="hymn"] {
-    margin-top: 5px;
+div[is^="hymn"] h1, div[is^="chant"] h1 {
+    margin-bottom: 5px;
 }
 
 

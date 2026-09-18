@@ -33,6 +33,7 @@ TO-DO (2026 September 17)
 A) HTML edit was compiled multiple times, apply to other file watchers? 
 B) when the src was "" (a directory, not an image file), it really threw a spanner in the works
 C) HTML_DIR and the HTTP/data/local image handling leaves much to be desired.
+D) Back slashes in src do not work on Mac
 2. Make it so if you click in the browser -> it opens for you to edit a temp file (in Notepad)?
 3. We want to fix the layouts a bit. Why are text sizes sometimes very inconsistent? Why are there sometimes big gaps and small text? (or at least the appearance of big gaps) Preface dialogue vs Pater Noster. Gloria big, readings small?
 4. Reading labels should be left-justified, div as a whole should be centered.
