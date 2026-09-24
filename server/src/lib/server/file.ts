@@ -1,6 +1,6 @@
 import path from 'node:path';
 import fs from 'node:fs/promises';
-import { access } from 'node:fs/promises';
+import { stat } from 'node:fs/promises';
 import { compileHTML } from './compile';
 
 export function dirname(src: string): string {
@@ -28,8 +28,7 @@ export function srcToLocalPath(src: string, HTML_DIR?: string): string {
 
 export async function fileExists(filePath: string): Promise<boolean> {
     try {
-        await access(filePath);
-        return true;
+        return (await stat(filePath)).isFile();
     } catch {
         return false;
     }
