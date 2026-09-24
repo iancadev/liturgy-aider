@@ -18,6 +18,9 @@ Select the file you're working on (this updates a config file), then choose whet
         );
     });
 
+    let deletingUnusedImages = $state(false);
+
+
     async function submit() {
         submitting = true;
         const response = await fetch("/api/set-file", {
@@ -30,6 +33,21 @@ Select the file you're working on (this updates a config file), then choose whet
         }
         submitting = false;
     }
+
+    async function deleteUnusedImages() {
+        if (deletingUnusedImages) return;
+
+        deletingUnusedImages = true;
+
+        const response = await fetch("/api/delete-unused-images", {
+            method: "GET",
+        });
+        if (response.status === 200) {
+            invalidate("app:html_file");
+        }
+
+        deletingUnusedImages = false;
+    }
 </script>
 
 <div
@@ -41,6 +59,10 @@ Select the file you're working on (this updates a config file), then choose whet
     {/if}
     <input bind:value={input_value} placeholder="new html_file path" />
     <button {disabled} onclick={() => submit()}>Set</button>
+</div>
+
+<div style="margin-bottom: 28px;">
+    <button disabled={deletingUnusedImages} onclick={() => deleteUnusedImages()}>Delete Unused Images</button>
 </div>
 
 <div style="margin-bottom: 8px;">

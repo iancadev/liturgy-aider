@@ -5,6 +5,24 @@ import { isTiffSrc, convertTiffToPng, serveLocal } from '$lib/server/tiff';
 import { fileExists } from './file';
 
 
+export const resolveAbsolutePath = async (html_dir: string, src: string): Promise<string | undefined> => {
+    if (!src)
+        return undefined;
+
+    if (src.startsWith("http://") || src.startsWith("https://") || src.startsWith("file://") || src.startsWith("data:")) {
+        return undefined;
+    }
+
+    const filesystemPath = path.resolve(html_dir, src);
+
+    if (!await fileExists(filesystemPath)) {
+        return undefined;
+    }
+
+    return filesystemPath;
+};
+
+
 export const imgAbsolutePaths = async (
     html: string,
     html_dir: string
