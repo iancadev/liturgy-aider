@@ -24,3 +24,7 @@ div[is^="hymn"] img[is="chant"] {
     margin-top: 5px;
     margin-right: 0.75in;
 }
+
+div[is^="hymn"] p[pre], div[is^="response"] p[pre] {
+    margin-top: 3px;
+}
