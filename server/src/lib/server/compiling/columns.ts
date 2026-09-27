@@ -101,7 +101,7 @@ const divideEl = ($, $el: cheerio.Cheerio<Element>, splits: number = 2, divider:
         const wrapper = $("<div></div>");
         wrapper.append($frag);
         container.append(wrapper);
-        if (divider) container.append($('<div class="divider"></div>'));
+        if (divider && i < splits - 1) container.append($('<div class="divider"></div>'));
     }
 
     $el.replaceWith(container);

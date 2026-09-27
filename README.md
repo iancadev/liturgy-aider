@@ -4,6 +4,8 @@
 
 Open a terminal, `cd server`, `npm install` and `npm run dev`.
 
+For the "Extract Images from PDF" tool, you need to install pdfimages as a bash command (i.e. add to PATH on Windows).
+
 Set the HTML file you are editing at [localhost:5173/](localhost:5173/).
 
 You can:

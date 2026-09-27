@@ -1,4 +1,6 @@
-<html><head>
+<html>
+
+<head>
     <script id="layout-config">
         ({
             IDEAL_FONT: 12,
@@ -19,38 +21,24 @@
 <body>
     <div is="header" scale="1.2">
         <div horizontal="">
-            <img src="resources/seal-logo.png" deco="" const="" scale="3.5">
+            <img src="resources/seal-logo.png" deco="" const="">
             <div expand="">
                 <p is="title">Twenty-fifth Sunday in Ordinary Time</p>
                 <p is="HNJ" const=""></p>
-                <p is="mass">6 PM Mass</p>
-                <p is="prelude">Prelude “Andante in F” Edward MacDowell (1860-1908)</p>
+                <p is="mass">Sat. 5:30, Sun. 9 am and 12 noon Masses</p>
             </div>
         </div>
     </div>
 
     <div is="hymn.opening" vertical="">
+        <p is="prelude">Prelude “Andante in F” Edward MacDowell (1860-1908)</p>
         <h1>Opening Hymn "Praise to the Lord, the Almighty"</h1>
         <img is="hymn" scale="1.3" src="./resources/527 Praise to the Lord, the Almighty (1-3) 2022 cong 2-line.tif">
     </div>
 
-    <div is="chant.entrance" vertical="">
-        <h1>Entrance Antiphon “Salus populi ego sum” (“I am the salvation of the people”) (Sirach 36:18)</h1>
-        <div horizontal-center="" style="gap: 100px;">
-            <pre scale="1.8" font-italic="">I am the salvation of the people,
-  says the Lord;
-from whatever tribulations
-  they cry out to me,
-I will give heed to them;
-  and I will be their Lord for ever.
-        </pre>
-            <img src="resources/Introit - Salus populi.png" scale="0.95">
-        </div>
-    </div>
-
     <div is="response.penitential" horizontal="" style="gap: 20px;">
         <h2 const="">Penitential Rite</h2>
-        <img src="resources/penitential rite.png" scale="5" const>
+        <img src="resources/penitential rite.png" scale="5" const="">
     </div>
 
     <div is="response.kyrie" horizontal="" style="gap: 50px;">
@@ -60,11 +48,13 @@ I will give heed to them;
 
     <div is="response.gloria" horizontal="" style="gap: 50px;">
         <h2 const="">Gloria</h2>
-        <img src="resources/Gloria 1 of 2.png" split="12" top-scale="1.1" bottom-scale="0.98">
+        <img src="resources/Gloria 1 of 2.png">
     </div>
 
+    <hr>
+
     <div is="reading.first" horizontal="" style="gap: 0.5em">
-        <div vertical-left>
+        <div vertical-left="">
             <div horizontal-bottom="" left="" style="gap: 0.5em">
                 <h2 const="">First Reading</h2>
                 <subtitle>(Isaiah 55:6-9)</subtitle>
@@ -93,7 +83,7 @@ and my thoughts above your thoughts.
     </div>
 
     <div is="reading.second" horizontal="">
-        <div vertical-left>
+        <div vertical-left="">
             <div horizontal-bottom="">
                 <h2 const="">Second Reading</h2>
                 <subtitle>(Philippians 1:20c-24, 27a)</subtitle>
@@ -124,7 +114,7 @@ and my thoughts above your thoughts.
     </div>
 
     <div is="reading.gospel" horizontal="">
-        <div vertical-left>
+        <div vertical-left="">
             <div horizontal-bottom="">
                 <h2 const="">Gospel</h2>
                 <subtitle>(Matthew 20:1-16a)</subtitle>
@@ -173,9 +163,10 @@ Thus, the last will be first, and the first will be last."
         <p const="">Homily + Profession of Faith</p>
     </div>
 
-    <hr><div is="response.creed">
+    <hr>
+    <div is="response.creed">
         <h3 const="" style="margin-bottom: 5px;">The Nicene Creed</h3>
-        <pre two-column="" const="">I believe in one God, the Father almighty,
+        <pre two-column-divided="" const="">I believe in one God, the Father almighty,
 maker of heaven and earth,
 of all things visible and invisible.
 I believe in one Lord Jesus Christ,
@@ -205,17 +196,20 @@ and I look forward to the resurrection of the dead
 and the life of the world to come.  Amen.
     </pre>
     </div>
-    
+
 
     <div is="marker.prayer">
-        <p>Prayer of the Faithful + Offertory + Liturgy of the Eucharist</p>
-        <subtitle><u>Chant</u>
-            :
-            “Si ambulavero in medio tribulationis” Psalm 138:7 (“Though I walk amid distress”)
+        <p const="">Prayer of the Faithful + Offertory</p>
+        <subtitle><u>Sat./9 am Solo</u>
+            “Psalms, Hymns, and Spiritual Songs” Mark Hayes (1953 - )
         </subtitle>
-        <pre>        “Though I walk amid distress, you preserve me; against the anger of my enemies you raise your hand;
-your right hand saves me.”
-    </pre>
+        <br>
+        <subtitle><u>12 Noon Schola</u>
+            “Petite et dabitur vobis” Gallus Dressler (1533-c.1585)
+        </subtitle>
+        <pre>“Ask and it shall be given you, seek and ye shall find, knock and it shall be opened unto you.”</pre>
+        <p const="">+ Liturgy of the Eucharist +</p>
+
     </div>
 
     <div is="response.may" horizontal-center="">
@@ -240,65 +234,54 @@ your right hand saves me.”
         <img src="./resources/mystery.png">
     </div>
 
-    <div is="response.pater" corner="">
-        <div vertical-left>
-            <h2 const="">Pater Noster</h2>
-            <subtitle const="">("Our Father")</subtitle>
-        </div>
-        <img src="./resources/pater.png">
-    </div>
-
-
-
-    <div is="prayer.deliver" horizontal="">
+    <div is="prayer.ourfather" vertical="">
+        <p const="">+ Our Father +</p>
+        <pre font-bold="" const="">Our Father, who art in heaven, hallowed be thy name; thy kingdom come, thy will be done on earth as it is in heaven.
+Give us this day our daily bread, and forgive us our trespasses, as we forgive those who trespass against us;
+and lead us not into temptation, but deliver us from evil.
+        </pre>
         <pre const="">Deliver us Lord from every evil, graciously grant peace in our day, that by the help of your mercy we may be always free from sin
 and safe from all distress, as we await the blessed hope, and the coming of our Savior, Jesus Christ.
-    </pre>
+        </pre>
+        <pre font-bold="" const="">For the kingdom, the power and the glory are yours now and for ever.
+        </pre>
     </div>
 
-    <div is="response.for" horizontal="">
-        <h2 const="">For the kingdom</h2>
-        <img src="./resources/forthe.png">
+    <div is="marker.peace">
+        <p const="">+ Sharing of Peace +</p>
     </div>
 
-    <hr><div is="response.agnus" horizontal="">
+    <div is="response.agnus" horizontal="">
         <div>
             <h2 const="">Agnus Dei</h2>
             <subtitle const="">("Lamb of God")</subtitle>
         </div>
         <img src="resources/agnus 11122.tif">
     </div>
-    
+
 
     <div is="response.behold" horizontal-bottom="">
         <h2 const="">Behold the Lamb</h2>
         <pre const=""> Lord, I am not worthy that you should enter under my roof, but only say the word and my soul shall be healed.
     </pre>
     </div>
+    <hr>
 
-
-    <div is="hymn.communion">
-        <h1>Communion Antiphon “You have laid down your precepts” (Psalm 119)</h1>
+    <div is="hymn.communion" vertical>
+        <subtitle is="precommunion">
+            Communion Instrumental "A quiet piece" Sigfrid Karg-Elert (1877-1933)
+        </subtitle>
+        <h1>Communion Hymn “You Satisfy the Hungry Heart”</h1>
         <img src="./resources/Communion Antiphon - You have laid down.png" scale="1.1" style="margin-bottom:5px;">
-        <pre four-column="">1. Blessed those
-    whose way is blameless,
-   who walk by the law
-     of the LORD.
----
-2. Blessed those
-     who keep his testimonies,
-   who seek him
-     with all their heart.
----
-3. Then I will
-      not be ashamed
-    to ponder
-      all your commandments.
----
-4. I will praise you
-     with sincere heart
-    as I study
-     your righteous judgments.</pre>
+        <div is="12noonschola">
+            <subtitle>
+                12 Noon Schola: “Anima nostra” (Psalm 124, vs. 7-8) Josef Rheinberger (1839-1901)
+            </subtitle>
+            <pre>
+    “Our soul is like a sparrow snatched from the snare of the hunters; the snare is broken and we are delivered.
+    Our helper in the name of the Lord, who made heaven and earth.”
+            </pre>
+        </div>
     </div>
 
     <div is="response.salve" vertical="">

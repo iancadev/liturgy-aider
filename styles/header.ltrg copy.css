@@ -6,7 +6,10 @@
 
     div[is^="header"] img {
         float: left;
-        margin-right: 10px;
+        margin-right: -5px;
+        margin-top: -5px;
+        height: 5lh !important;
+        width: auto !important;
     }
 
     div[is^="header"] *[is="title"] {

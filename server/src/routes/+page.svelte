@@ -6,6 +6,7 @@ Select the file you're working on (this updates a config file), then choose whet
 
 <script lang="ts">
     import { invalidate } from "$app/navigation";
+    import ExtractFromPDFUpload from "$lib/ExtractFromPDFUpload.svelte";
 
     let { data } = $props();
 
@@ -71,3 +72,8 @@ Select the file you're working on (this updates a config file), then choose whet
 </div>
 
 <a class="landing" href="/browser">Browse toolkit</a>
+
+<div style="background: white; margin: 50px 0; display: inline-block;">
+    <p style="margin: 4px;">Extract images from PDF into resources folder</p>
+    <ExtractFromPDFUpload {disabled}></ExtractFromPDFUpload>
+</div>
