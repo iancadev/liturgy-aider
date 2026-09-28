@@ -1,5 +1,5 @@
 import { json } from "@sveltejs/kit";
-import { dirname } from '$lib/server/file';
+import { dirExists, dirname, fileExists } from '$lib/server/file';
 import { access, mkdir, writeFile, rm } from "node:fs/promises";
 import path from "node:path";
 import { execFile } from "node:child_process";
@@ -28,13 +28,14 @@ async function getUniqueDirectory(baseDir: string, name: string): Promise<string
     }
 }
 
-export async function POST({ request }) {
-    if (!cookies.get('html_file')) return new Response("No html_file to watch in cookies", {
+export async function POST({ cookies, request }) {
+    const html_file = cookies.get('html_file');
+
+    if (!html_file || !await fileExists(html_file)) return new Response("No html_file to watch in cookies", {
         status: 500,
         headers: { "Content-Type": "text/plain" }
     });
 
-    const html_file = cookies.get('html_file');
     const html_dir = dirname(html_file);
 
     const OUTPUT_BASE_DIR = path.join(html_dir, "resources");
@@ -85,6 +86,7 @@ export async function POST({ request }) {
 
         return json({
             success: true,
+            name: file.name,
             directory: outputDir
         });
     } catch (error) {

@@ -34,7 +34,7 @@
                 throw new Error(result.error ?? "Extraction failed.");
             }
 
-            status = `Extracted ${result.count} image${result.count === 1 ? "" : "s"}.`;
+            status = `Extracted images from ${result.name}.`;
         } catch (error) {
             status = error instanceof Error
                 ? error.message
