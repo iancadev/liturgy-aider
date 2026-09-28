@@ -1,12 +1,12 @@
 import { htmlFileEvent, watchHtmlFile } from "$lib/server/fileWatcher";
 
-export function GET({ cookies }) {
+export async function GET({ cookies }) {
     if (!cookies.get('html_file')) return new Response("No html_file to watch in cookies", {
         status: 500,
         headers: { "Content-Type": "text/plain" }
     });
 
-    watchHtmlFile(cookies.get('html_file'))
+    await watchHtmlFile(cookies.get('html_file'))
 
     let listener: (() => void) | undefined;
 

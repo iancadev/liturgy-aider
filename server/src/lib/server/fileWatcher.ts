@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { EventEmitter } from "events";
+import { dirExists, fileExists } from "./file";
 
 export const stylesEvent = new EventEmitter();
 
@@ -8,8 +9,14 @@ export const stylesDir = path.resolve('../styles');
 
 let stylesWatcher: fs.FSWatcher | undefined;
 
-export function watchStyles() {
+export async function watchStyles(file: string) {
     stylesWatcher?.close();
+
+    if (!await fileExists(file)) return;
+
+    const stylesDir = path.join(path.dirname(file), 'styles');
+
+    if (!await dirExists(stylesDir)) return;
 
     stylesWatcher = fs.watch(stylesDir, { recursive: true }, (event, filename) => {
         if (!filename) return;
@@ -22,8 +29,6 @@ export function watchStyles() {
         }
     });
 }
-
-watchStyles();
 
 
 
@@ -56,8 +61,10 @@ export const htmlFileEvent = new EventEmitter();
 
 let watcher: fs.FSWatcher | undefined;
 
-export function watchHtmlFile(file: string) {
+export async function watchHtmlFile(file: string) {
     watcher?.close();
+
+    if (!await fileExists(file)) return;
 
     let timeout: NodeJS.Timeout | undefined;
 

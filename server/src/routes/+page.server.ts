@@ -5,7 +5,7 @@ export async function load({ cookies, depends }) {
     depends('app:html_file');
 
     if (!cookies.get('html_file')) {
-        cookies.set('html_file', path.resolve('../current.html'), { path: '/' })
+        cookies.set('html_file', path.resolve('../example-project/example.html'), { path: '/' })
     }
     
     const html_file = cookies.get('html_file');

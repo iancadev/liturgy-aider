@@ -34,6 +34,15 @@ export async function fileExists(filePath: string): Promise<boolean> {
     }
 }
 
+export async function dirExists(dirPath: string): Promise<boolean> {
+    try {
+        const stats = await stat(dirPath);
+        return stats.isDirectory();
+    } catch {
+        return false;
+    }
+}
+
 async function removeCssRecursive(dir: string) {
     try {
         const entries = await fs.readdir(dir, { withFileTypes: true });

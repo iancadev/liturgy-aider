@@ -2,8 +2,10 @@
     let { disabled } = $props();
 
     let fileInput: HTMLInputElement;
-    let status = "";
-    let uploading = false;
+    let status = $state("");
+    let uploading = $state(false);
+
+    let allowUpload = $derived.by(() => uploading || disabled);
 
     async function handleFile(file: File | undefined) {
         if (!file) return;
@@ -21,7 +23,7 @@
             const formData = new FormData();
             formData.append("file", file);
 
-            const response = await fetch("/api/extract-pdf-images", {
+            const response = await fetch("/api/digest-pdf", {
                 method: "POST",
                 body: formData
             });
@@ -73,7 +75,7 @@
         bind:this={fileInput}
         type="file"
         accept="application/pdf,.pdf"
-        disabled={uploading || disabled}
+        disabled={allowUpload}
         onchange={handleChange}
     />
 

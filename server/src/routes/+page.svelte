@@ -19,6 +19,10 @@ Select the file you're working on (this updates a config file), then choose whet
         );
     });
 
+    let file_exists = $derived.by(() => {
+        return ( data.html_file && !data.warning );
+    })
+
     let deletingUnusedImages = $state(false);
 
 
@@ -75,5 +79,5 @@ Select the file you're working on (this updates a config file), then choose whet
 
 <div style="background: white; margin: 50px 0; display: inline-block;">
     <p style="margin: 4px;">Extract images from PDF into resources folder</p>
-    <ExtractFromPDFUpload {disabled}></ExtractFromPDFUpload>
+    <ExtractFromPDFUpload disabled={!file_exists}></ExtractFromPDFUpload>
 </div>
