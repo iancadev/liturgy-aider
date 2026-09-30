@@ -26,4 +26,9 @@ export const autofillContent = ($: cheerio.CheerioAPI) => {
         $(`[is="LICENSE"]`),
         "Hymns and responses reprinted with permission under OneLicense.net A-725664"
     );
+
+    setNodesIfBlank(
+        $(`[is="ES-LICENSE"]`),
+        "Himnos y respuestas reimpresos con permiso bajo OneLicense.net A-725664"
+    )
 };
