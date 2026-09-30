@@ -161,6 +161,7 @@ export const extractFields = async (html: string, html_dir: string): Promise<Rec
     // Extract text fields
     for (const el of $("div[is] *").toArray()) {
         if ($(el).attr("const") !== undefined) continue;
+        if ($(el).parents("[const]").toArray().length !== 0) continue;
         const path = [
             ...$(el)
                 .parents("[is]")
