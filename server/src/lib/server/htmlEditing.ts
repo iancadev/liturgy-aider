@@ -2,7 +2,10 @@ import fs from "fs/promises";
 import * as cheerio from "cheerio";
 
 function format(html: string): string {
-    return html.replace('<html><head></head><body>', '').replace('</body></html>', '')
+    for (const tag of ['<html>', '<head>', '</head>', '<body>', '</body>', '</html>']) {
+        html = html.replace(tag, '')
+    }
+    return html
 }
 
 import path from "path";
