@@ -41,7 +41,8 @@
 </script>
 
 <svelte:head>
-    <link rel="stylesheet" href="/page-content.css" />
+    <link rel="stylesheet" href="/page-content.css" />    
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
 </svelte:head>
 
 <div

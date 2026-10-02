@@ -147,7 +147,8 @@ Foundational layer for layout and font attributes to work
     }
 
     [font-narrow] {
-        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        font-family: "Cormorant Garamond", Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        font-weight: 100;
     }
 
     [font-serif] {

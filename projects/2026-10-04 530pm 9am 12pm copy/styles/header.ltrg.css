@@ -47,4 +47,10 @@
         margin-left: 0.25in;
         clear: left;
     }
+
+    div[is^="hymn"] p[is^="prelude"] {
+        margin-bottom: 10px;
+        text-align: left;
+        margin-top: calc(-1.2 * var(--page-gap))
+    }
 }
