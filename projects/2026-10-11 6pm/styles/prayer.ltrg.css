@@ -1,0 +1,9 @@
+div[is^="prayer"] p[is="label"] {
+    font-size: 15px;
+    float: left;
+    text-decoration: underline;
+}
+
+div[is="prayer.penitential"] p[is="label"] {
+    position: absolute;
+}

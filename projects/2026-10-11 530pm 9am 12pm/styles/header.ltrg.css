@@ -1,0 +1,56 @@
+@layer project {
+    div[is^="header"] {
+        text-align: left;
+        min-width: 7in;
+    }
+
+    div[is^="header"] img {
+        float: left;
+        margin-right: -5px;
+        margin-top: -5px;
+        height: 5lh !important;
+        width: auto !important;
+    }
+
+    div[is^="header"] *[is="title"] {
+        font-size: 2.5em;
+        font-weight: bold;
+        width: 100%;
+    }
+
+
+    div[is^="header"] img {
+        margin-left: 0px;
+    }
+
+    div[is^="header"] p {
+        float: left;
+        font-weight: bold;
+    }
+    
+    div[is^="header"] p[is^="HNJ"] {
+        float: left;
+        font-weight: bold;
+    }
+
+    div[is^="header"] p[is^="mass"] {
+        float: right;
+        font-weight: 400;
+        font-style: italic;
+        text-decoration: underline;
+    }
+
+    div[is^="header"] p[is^="prelude"] {
+        float: left;
+        font-weight: 400;
+        font-style: italic;
+        margin-left: 0.25in;
+        clear: left;
+    }
+
+    div[is^="hymn"] p[is^="prelude"] {
+        margin-bottom: 10px;
+        text-align: left;
+        margin-top: calc(-1.2 * var(--page-gap))
+    }
+}

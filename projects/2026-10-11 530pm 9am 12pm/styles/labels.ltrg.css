@@ -1,0 +1,13 @@
+div p[is="label"] {
+    font-size: 15px;
+    float: left;
+    text-decoration: underline;
+}
+
+div[is="marker.prayer"] p:first-of-type {
+    margin-bottom: 0.2em;
+}
+
+div[is="marker.prayer"] p:last-of-type {
+    margin-top: 0.2em;
+}
