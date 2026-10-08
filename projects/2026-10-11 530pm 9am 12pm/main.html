@@ -4,8 +4,8 @@
         MIN_FONT: 8.,
         MAX_FONT: 30,
 
-        IDEAL_GAP: 0.2 * 96,
-        GAP_SCALE: 0.05,
+        IDEAL_GAP: 0.1 * 96,
+        GAP_SCALE: 0.1,
 
         PADDING_Y: 0.4 * 96,
         PADDING_X: 0.5 * 96,
@@ -21,13 +21,13 @@
         <img src="resources/seal-logo.png" deco="" const="">
         <div expand="">
             <p is="title">Twenty-eighth Sunday in Ordinary Time</p>
-            <p is="HNJ" const="" font-narrow=""></p>
+            <p is="HNJ" const="" font-narrow="" style="transform: scaleX(0.9); transform-origin: left;"></p>
             <p is="mass">Sat. 5:30, Sun. 9 am and 12 noon Masses</p>
         </div>
     </div>
 </div>
 
-<div is="hymn.opening" vertical-left="">
+<div is="hymn.opening" vertical="">
     <div vertical-left="">
         <p is="prelude" scale="1.4" font-italic=""><br>Prelude: "Plainte” Jean Langlais (1907 -1991); 12 “Domine Deus” (M.Haydn)</p>
     </div>
@@ -80,8 +80,8 @@ For the hand of the LORD will rest on this mountain.</pre>
     </div>
 </div>
 
-<div is="response.psalm" horizontal="">
-    <div style="margin-top:20px;">
+<div is="response.psalm" horizontal-center="">
+    <div>
         <h3>Psalm 23</h3>
         <subtitle>(Vs. 1-3a, 3b-4, 5, 6)</subtitle>
     </div>
@@ -112,7 +112,7 @@ To our God and Father, glory forever and ever. Amen.</pre>
 
 
 
-<div is="response.gospel" horizontal="">
+<div is="response.gospel" horizontal-center="">
     <h3 const="">Gospel<br>Acclamation</h3>
     <img src="resources/Alleluia.png">
 </div>
@@ -196,8 +196,6 @@ and I look forward to the resurrection of the dead
 and the life of the world to come.  Amen.
     </pre>
 </div>
-<hr>
-
 
 <div is="marker.prayer">
     <p const="">Prayer of the Faithful + Offertory</p>
@@ -205,16 +203,18 @@ and the life of the world to come.  Amen.
     <br>
     <subtitle is="12pm"><u>12 Noon Schola</u> “Laudate Dominum” Antonio Vivaldi (1678-1741)</subtitle>
     <pre></pre>
-    <p const="">+ Liturgy of the Eucharist +</p>
-
+    <hr>
+    <p  style="margin: 0" const="">+ Liturgy of the Eucharist +</p>
 </div>
 
 <div is="response.may" horizontal-center="">
     <h2 const="">May the Lord</h2>
-    <pre font-narrow="" const="">May the Lord accept the sacrifice at your hands,
+    <pre font-narrow="" const="" scale="1.3">May the Lord accept the sacrifice at your hands,
             for the praise and glory of his name, for our good, and the good of all his holy Church.
     </pre>
 </div>
+
+    
 
 <div is="response.preface" horizontal-center="">
     <h2 const="">Preface<br>Dialogue</h2>
@@ -236,7 +236,7 @@ and the life of the world to come.  Amen.
     <img src="resources/Amen.png">
 </div>
 
-<div is="prayer.ourfather" vertical="" const="">
+<div is="prayer.ourfather" vertical="" const="" scale="1.3">
     <p>+ Our Father +</p>
     <pre font-bold="">Our Father, who art in heaven, hallowed be thy name; thy kingdom come, thy will be done on earth as it is in heaven.
 Give us this day our daily bread, and forgive us our trespasses, as we forgive those who trespass against us;
@@ -270,16 +270,16 @@ and safe from all distress, as we await the blessed hope, and the coming of our 
 
 
 <div is="hymn.communion" vertical="">
-    <subtitle is="precommunion" scale="1.2">
+    <subtitle is="precommunion" scale="1.2" style="margin-bottom:3px">
         Communion Interlude "Duo on the first tone (D minor)” Jean-Adam Guilain (c. 1680 - c. 1740)</subtitle>
     <h1>Communion Hymn “All Who Hunger, Taste and See”</h1>
-    <img src="resources/All Who Hunger.png" scale="1.1" style="margin-bottom:5px;">
+    <img src="resources/All Who Hunger.png" scale="1.3" style="margin-bottom:5px;">
     <pre four-column=""> </pre>
 </div>
+
 <hr>
 
 <div is="hymn.communion2" vertical="">
-    <h1> </h1>
     <img src="" scale="1.1" style="margin-bottom:5px;">
     <div is="12noonschola">
         <subtitle scale="1.2">
