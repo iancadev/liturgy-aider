@@ -207,7 +207,7 @@ export const extractFields = async (html: string, html_dir: string): Promise<Rec
                 break;
         }
 
-        if (value) {
+        if (value !== undefined) {
             fields[path.join(" ")] = { value, preview };
             // setNestedValue(fields, path, value);
         }
