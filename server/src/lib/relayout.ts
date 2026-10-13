@@ -17,7 +17,7 @@ export function relayout(
 
     const MAX_WIDTH = PAGE_WIDTH - 2 * CONFIG.PADDING_X;
 
-    let font = CONFIG.IDEAL_FONT;
+    let font = CONFIG.IDEAL_BASEFONT;
 
     function getGap() {
         return CONFIG.IDEAL_GAP + CONFIG.GAP_SCALE * font;
@@ -32,6 +32,11 @@ export function relayout(
         page.style.setProperty(
             "--page-padding",
             `${CONFIG.PADDING_Y}px`
+        );
+
+        page.style.setProperty(
+            "--min-font-pre",
+            `${CONFIG.MIN_FONT_PRE}px`
         );
 
         page.style.paddingLeft = `${CONFIG.PADDING_X}px`;
@@ -175,7 +180,7 @@ export function relayout(
 
     // First find a font size that fits.
     while (
-        font > CONFIG.MIN_FONT &&
+        font > CONFIG.MIN_BASEFONT &&
         !fits()
     ) {
         font -= 0.25;
@@ -183,7 +188,7 @@ export function relayout(
 
     // Then increase the font as much as possible
     // without violating either constraint.
-    while (font < CONFIG.MAX_FONT) {
+    while (font < CONFIG.MAX_BASEFONT) {
         font += 0.25;
 
         if (!fits()) {

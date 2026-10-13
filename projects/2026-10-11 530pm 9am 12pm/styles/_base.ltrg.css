@@ -21,6 +21,7 @@ These can be overridden by project-styles.
     div[is] h6 { font-size: 0.67em; }
 
     div[is] p { font-size: 1em; }
+    div[is] p[pre] { font-size: calc(max(var(--min-font-pre), 1em)); }
 
     div[is] h1,
     div[is] h2,

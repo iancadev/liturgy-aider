@@ -18,7 +18,7 @@
             relayout(page, config, queueRelayout);
         });
     }
-    
+
     $effect(() => {
         config;
         queueRelayout();
@@ -34,23 +34,29 @@
             characterData: false,
         });
 
+        const interval = setInterval(queueRelayout, 3000);
+
         queueRelayout();
 
-        return () => mo.disconnect();
+        return () => {
+            mo.disconnect();
+            clearInterval(interval);
+        };
     });
 </script>
 
 <svelte:head>
-    <link rel="stylesheet" href="/page-content.css" />    
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/page-content.css" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap"
+        rel="stylesheet"
+    />
 </svelte:head>
 
-<div
-    class="DisplayPage"
-    bind:this={page}
-    
->
+<div class="DisplayContainer">
+<div class="DisplayPage" bind:this={page}>
     {@render children()}
+</div>
 </div>
 
 <style>
@@ -71,5 +77,20 @@
         padding-top: var(--page-padding);
         padding-bottom: var(--page-padding);
         box-sizing: border-box;
+    }
+
+    .DisplayContainer {
+        width: 8.5in;
+        margin: 0 auto;
+        position: relative;
+    }
+
+    .DisplayContainer button#rerender {
+        position: absolute;
+        left: -30px;
+        width: 20px;
+        height: 100px;
+        top: calc((8.5in) / 2 + 50px);
+        writing-mode: sideways-lr;
     }
 </style>
