@@ -79,11 +79,14 @@
             }
         }
 
+        // return {
+        //     containers: [...containers].sort(),
+        //     specialElements: [...specialElements].sort(),
+        //     textElements: [...textElements].sort(),
+        // };
         return {
-            containers: [...containers].sort(),
-            specialElements: [...specialElements].sort(),
-            textElements: [...textElements].sort(),
-        };
+            containers, specialElements, textElements
+        }
     });
 
     const numOptions = $derived.by(() => {
@@ -117,9 +120,9 @@
 
             if (filter.type === "element") {
                 if (filter.tag == "img")
-                    return /img\[is="([^"]+)"\]/g.test(key) || /img/g.test(key);
+                    return /img\[is="([^"]+)"\]/g.test(key) || /(^|[^a-zA-Z0-9_"'])img(?=[\s.#:[\]>+~]|$)/i.test(key);
                 if (filter.tag == "pre")
-                    return /pre\[is="([^"]+)"\]/g.test(key) || /pre/g.test(key);
+                    return /pre\[is="([^"]+)"\]/g.test(key) || /(^|[^a-zA-Z0-9_"'])pre(?=[\s.#:[\]>+~]|$)/i.test(key);
                 return /(?:p|h1|h2|h3|h4|h5|h6|span|subtitle)\[is="([^"]+)"\]/g.test(
                     key,
                 );
@@ -127,7 +130,7 @@
 
             if (filter.type === "text") {
                 return (
-                    /(?:p|h1|h2|h3|h4|h5|h6|span|subtitle)\[is="([^"]+)"\]/g.test(key) &&
+                    /(?:p|h1|h2|h3|h4|h5|h6|span|subtitle|pre)\[is="([^"]+)"\]/g.test(key) &&
                     key.includes(`[is="${filter.is}"]`)
                 );
             }
@@ -161,7 +164,7 @@
 
                     filter = {
                         type: "element",
-                        tag: tag as "img" | "pre",
+                        tag: tag as "img" | "pre" | "text",
                         is,
                     };
                 } else if (value.startsWith("text:")) {

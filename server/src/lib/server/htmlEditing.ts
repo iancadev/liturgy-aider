@@ -21,6 +21,11 @@ export async function editHtmlText(
 
     const elements = $(selector);
 
+    console.log($('div[is="hymn.communion2"]').length);
+    console.log($('div[is="hymn.communion2"] div[is="12noonschola"]').length);
+    console.log($('div[is="hymn.communion2"] div[is="12noonschola"] pre').length);
+    console.log($('div[is="hymn.communion2"] div[is="12noonschola"] pre:nth-of-type(1)').length);
+
     if (elements.length === 0) {
         console.log(`No elements found for selector: ${selector}`);
         return;

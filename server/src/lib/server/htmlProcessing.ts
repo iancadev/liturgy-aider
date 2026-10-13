@@ -141,38 +141,39 @@ export const extractFields = async (html: string, html_dir: string): Promise<Rec
 
     const fields: Record<string, any> = {};
 
-    function setNestedValue(
-        obj: Record<string, any>,
-        path: string[],
-        value: string
-    ) {
-        let current = obj;
-
-        for (let i = 0; i < path.length - 1; i++) {
-            if (!(path[i] in current)) {
-                current[path[i]] = {};
-            }
-            current = current[path[i]];
-        }
-
-        current[path[path.length - 1]] = value;
-    }
-
     // Extract text fields
     for (const el of $("div[is] *").toArray()) {
         if ($(el).attr("const") !== undefined) continue;
         if ($(el).parents("[const]").toArray().length !== 0) continue;
+
         const path = [
             ...$(el)
                 .parents("[is]")
                 .toArray()
-                .reverse()
-                .map(
-                    (parent) =>
-                        `${parent.tagName}[is="${$(parent).attr("is")}"]`
-                ),
-            $(el).attr("is") ? `${el.tagName}[is="${$(el).attr("is")}"]` : el.tagName
-        ];
+                .reverse(),
+            el
+        ].map((node) => {
+            const element = $(node);
+            const tag = node.tagName;
+            const is = element.attr("is");
+
+            let selector = is
+                ? `${tag}[is="${is}"]`
+                : tag;
+
+            const siblings = element.parent().children(tag);
+            const matchingSiblings = siblings.filter((_, sibling) =>
+                $(sibling).attr("is") === is
+            );
+
+            if (matchingSiblings.length > 1) {
+                const index = siblings.index(node) + 1;
+                selector += `:nth-of-type(${index})`;
+            }
+
+            return selector;
+        });
+
 
         let value: string | undefined;
         let preview: string | undefined;
@@ -208,8 +209,18 @@ export const extractFields = async (html: string, html_dir: string): Promise<Rec
         }
 
         if (value !== undefined) {
-            fields[path.join(" ")] = { value, preview };
-            // setNestedValue(fields, path, value);
+            let key = path.join(" ");
+
+            if (key in fields) {
+                const parent = $(el).parent();
+                const siblings = parent.children(el.tagName);
+                const index = siblings.index(el) + 1;
+
+                path[path.length - 1] += `:nth-of-type(${index})`;
+                key = path.join(" ");
+            }
+
+            fields[key] = { value, preview };
         }
     }
 
