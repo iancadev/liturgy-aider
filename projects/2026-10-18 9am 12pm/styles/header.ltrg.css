@@ -53,6 +53,6 @@
     div[is^="hymn"] p[is^="prelude"] {
         margin-bottom: 10px;
         text-align: left;
-        margin-top: calc(-1.2 * var(--page-gap))
+        margin-top: calc(-3.5 * var(--page-gap))
     }
 }
