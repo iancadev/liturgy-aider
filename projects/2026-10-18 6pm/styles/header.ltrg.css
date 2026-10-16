@@ -46,5 +46,6 @@
         font-style: italic;
         margin-left: 0.25in;
         clear: left;
+        margin-top: calc(1 * var(--page-gap))
     }
 }
