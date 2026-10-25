@@ -38,8 +38,6 @@
         font-weight: 400;
         font-style: italic;
         text-decoration: underline;
-        font-size: 9px;
-        margin-top: 3px;
     }
 
     div[is^="header"] p[is^="prelude"] {
@@ -47,13 +45,7 @@
         font-weight: 400;
         font-style: italic;
         margin-left: 0.25in;
-        margin-top: 0px;
         clear: left;
-    }
-
-    div[is^="hymn"] p[is^="prelude"] {
-        margin-bottom: 4px;
-        text-align: left;
-        margin-top: calc(-3.5 * var(--page-gap))
+        margin-top: calc(1 * var(--page-gap))
     }
 }
