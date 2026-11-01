@@ -1,0 +1,183 @@
+/*
+Some default font settings to simplify the layout
+These can be overridden by project-styles.
+*/
+
+@layer link {
+    body {
+        font-family: serif;
+        line-height: 1;
+    }
+
+    img {
+        float: auto;
+    }
+    
+    div[is] h1 { font-size: 2em; }
+    div[is] h2 { font-size: 1.5em; }
+    div[is] h3 { font-size: 1.17em; }
+    div[is] h4 { font-size: 1em; }
+    div[is] h5 { font-size: 0.83em; }
+    div[is] h6 { font-size: 0.67em; }
+
+    div[is] p { font-size: 1em; }
+    div[is] p[pre] { font-size: calc(max(var(--min-font-pre), 1em)); }
+
+    div[is] h1,
+    div[is] h2,
+    div[is] h3,
+    div[is] h4,
+    div[is] h5,
+    div[is] h6,
+    div[is] p {
+        margin: 0;
+    }
+}
+
+
+
+/*
+Foundational layer for layout and font attributes to work
+*/
+
+@layer system {
+    .n-column-container, .n-column-divided-container { 
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        align-items: stretch;
+    }
+
+    .n-column-container div, .n-column-divided-container div {
+        float: left;
+        text-align: left;
+    }
+
+    .n-column-container {
+        gap: 3em;
+    }
+
+    .n-column-divided-container { 
+        gap: 1.5em;
+    }
+
+    .n-column-divided-container > div.divider {
+        border-right: 0.12em solid grey;
+        margin: 0.8em 0px;
+    }
+
+
+
+    img[split-top]::after {
+        content: '→';
+        font-size: 3em;
+        position: absolute;
+        bottom: 0px;
+        right: -4em;
+    }
+
+
+
+    div[horizontal] {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    div[horizontal-center] {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+    }
+
+    div[horizontal-bottom] {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-end;
+        gap: 10px;
+    }
+
+    div[horizontal-spacing] {
+        display: flex;
+        flex-direction: row;
+        gap: 20%;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+
+    div[corner] > *:first-child {
+        position: absolute;
+    }
+
+    div[vertical] {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    div[vertical-left] {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+
+    *[left] {
+        float: left;
+        text-align: left;
+    }
+    *[center] {
+        text-align: center;
+    }
+    *[right] {
+        float: right;
+    }
+    *[shrink] {
+        max-width: 80%;
+        flex-grow: 0;
+    }
+    *[expand] {
+        min-width: 60%;
+        flex-grow: 1;
+    }
+
+    [font-narrow] {
+        font-family: "Cormorant Garamond", Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        font-weight: 100;
+    }
+
+    [font-serif] {
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    }
+
+    [font-bold] {
+        font-weight: 700;
+    }
+
+    [font-italic] {
+        font-style: italic;
+    }
+
+    [font-sans] {
+        font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
+
+    [font-sans-bold] {
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        font-weight: 700;
+    }
+
+    [underline] {
+        text-decoration: underline;
+    }
+
+    [hidden], [hide] {
+        display: none;
+    }
+}
