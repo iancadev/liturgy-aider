@@ -1,13 +1,13 @@
 <script id="layout-config">
     ({
-        IDEAL_BASEFONT: 11,
-        MIN_BASEFONT: 8.,
-        MAX_BASEFONT: 11,
+        IDEAL_BASEFONT: 10,
+        MIN_BASEFONT: 9.,
+        MAX_BASEFONT: 10.1,
 
         MIN_FONT_PRE: 12,
 
-        IDEAL_GAP: 0.1 * 12,
-        GAP_SCALE: 0.1,
+        IDEAL_GAP: 0.3 * 12,
+        GAP_SCALE: 0.8,
 
         PADDING_Y: 0.4 * 60,
         PADDING_X: 0.5 * 96,
@@ -18,20 +18,17 @@
 
 
 
-<div is="header" scale="0.9">
-    <div horizontal="">
+<div is="header">
+    <div horizontal-center="">
         <img src="resources/seal-logo.png" deco="" const="">
         <div expand="">
-            <p is="title">The Commemoration of All the Faithful Departed
-(All Souls)<br>
-Commémoration de tous les fidèles défunts<br>Conmemoración de Todos los Fieles Difuntos  </p>
+            <p is="title"  scale="0.8">The Commemoration of All the Faithful Departed
+                (All Souls)<br>
+                Commémoration de tous les fidèles défunts<br>Conmemoración de Todos los Fieles Difuntos </p>
             <p is="HNJ" const="" font-narrow="" style="transform: scaleX(1.2); transform-origin: left;"></p>
             <p is="mass">7 pm Mass</p>
         </div>
     </div>
-</div>
-
-<div is="hymn.opening" vertical="">
     <div vertical-left="">
         <p is="prelude" scale="1.1" font-italic="">Prelude “Vesper Voluntary II (D minor)” Edward Elgar (1857-1934)</p>
     </div>
@@ -39,15 +36,17 @@ Commémoration de tous les fidèles défunts<br>Conmemoración de Todos los Fiel
 
 <div is="hymn.communion">
     <h1>Introit / Entrance Antiphon “Requiem aeternam”</h1>
-    <img scale="0.8" src="resources/Requiem Aeternam - Introit (short).png" style="margin-bottom:3px;">
-    <pre three-column="">"Grant unto them eternal rest, O Lord,
+    <div horizontal="">
+        <pre>"Grant unto them eternal rest, O Lord,
   and let perpetual light shine upon them." 
----
+
 "Dales Señor el descanso eterno
   y la luz perpetua brille para ellos". 
----
+
 "Seigneur, donne-leur le repos éternel
   et fais luire pour eux la lumière sans déclin."</pre>
+        <img scale="0.8" src="resources/Requiem Aeternam - Introit (short).png" style="margin-bottom:3px;">
+    </div>
 </div>
 
 <div is="response.penitential" horizontal="" style="gap: 20px;" const="">
@@ -73,7 +72,7 @@ Commémoration de tous les fidèles défunts<br>Conmemoración de Todos los Fiel
             <h2 const="">First Reading</h2>
             <subtitle>(Wisdom 3:1-9 / Sg 3, 1-6.9 / Sabidurίa 3, 1-9)</subtitle>
         </div>
-        <pre three-column="" scale="1.2" font-narrow="" style="font-family:Lucida Sans Unicode;">The souls of the just are in the hand of God,
+        <pre three-column-divided="" scale="1" font-narrow="" style="font-family:Lucida Sans Unicode; gap: 5px;" nowrap="">The souls of the just are in the hand of God,
     and no torment shall touch them.
 They seemed, in the view of the foolish, to be dead;
     and their passing away was thought an affliction
@@ -144,7 +143,8 @@ y los que son fieles a su amor permanecerán a su lado,
 porque Dios ama a sus elegidos y cuida de ellos.
 </pre>
     </div>
-</div><hr>
+</div>
+
 
 <div is="hymn.communion">
     <div>
@@ -155,7 +155,7 @@ porque Dios ama a sus elegidos y cuida de ellos.
     <pre two-column="">"Le Seigneur est mon berger : je ne manque de rien." 
 ---
 "El Señor es mi pastor, nada me faltará.". </pre>
-</div>
+</div><hr>
 
 <div is="reading.second" horizontal="">
     <div vertical-left="">
@@ -163,7 +163,7 @@ porque Dios ama a sus elegidos y cuida de ellos.
             <h2 const="">Second Reading</h2>
             <subtitle>(Romans / Romanos / Romains 5:5-11)</subtitle>
         </div>
-        <pre three-column="" scale="0.9" style="font-family:'Lucida Sans Unicode'">Brothers and sisters:
+        <pre three-column-divided="" scale="1" style="font-family:'Lucida Sans Unicode'; gap: 2px;" nowrap>Brothers and sisters:
 Hope does not disappoint,
 because the love of God has been poured out into our hearts
 through the Holy Spirit who has been given to us. 
@@ -250,7 +250,7 @@ par qui, maintenant, nous avons reçu la réconciliation.</pre>
             <h2 const="">Gospel</h2>
             <subtitle>(John / Juan / Jean 6:37-40)</subtitle>
         </div>
-        <pre three-column="" scale="1" style="gap: 1em;">Jesus said to the crowds:
+        <pre three-column-divided="" scale="1" style="gap: 1em;" nowrap="">Jesus said to the crowds:
 “Everything that the Father gives me
  will come to me,
 and I will not reject
@@ -308,9 +308,11 @@ et moi, je le ressusciterai au dernier jour. »</pre>
 
 <div is="response.creed">
     <hidden h3="" const="" style="margin-bottom: 3px;">
-    <hidden pre="" two-column-divided="" const="" font-bold="" scale="0.9">
-    
-</hidden></hidden></div>
+        <hidden pre="" two-column-divided="" const="" font-bold="" scale="0.9">
+
+        </hidden>
+    </hidden>
+</div>
 
 <div is="marker.prayer">
     <p const="">Offertory</p>
@@ -318,14 +320,15 @@ et moi, je le ressusciterai au dernier jour. »</pre>
     <br>
     <subtitle is="12pm"><u> </u> </subtitle>
     <pre>Offertory Chant: Domine Jesus Christe, Rex gloriae ("Lord Jesus Christ, King of Glory")</pre>
-    <hr>
-        <pre three-column="" scale="0.8">Lord Jesus Christ, King of glory, deliver the souls of all the faithful departed from the punishments of hell and from the bottomless pit. Deliver them from the mouth of the lion, and let not the netherworld swallow them up nor let them fall into darkness. But let St. Michael, the standard-bearer, bring them back again into the holy light as was promised to Abraham and his seed.
+    <pre three-column="" scale="1.2">Lord Jesus Christ, King of glory, deliver the souls of all the faithful departed from the punishments of hell and from the bottomless pit. Deliver them from the mouth of the lion, and let not the netherworld swallow them up nor let them fall into darkness. But let St. Michael, the standard-bearer, bring them back again into the holy light as was promised to Abraham and his seed.
 ---
 Seigneur Jésus Christ, Roi de Gloire, délivrez les âmes de tous les fidèles défunts des peines de l'enfer et du gouffre profond ; délivrez les de la gueule du lion ; que l'abîme ne les engloutisse pas et qu'elles ne disparaissent pas dans les ténèbres. Mais que Saint Michel les conduise vers la sainte lumière qu'autrefois vous avez promise à Abraham et à sa postérité. Ces présents et ces prières de louange que nous t'offrons, Seigneur : reçois-les pour ces âmes, dont nous rappelons aujourd'hui le souvenir. Fais-les passer, Seigneur, de la mort à la vie.
 ---
 Señor Jesús Cristo, Rey de la gloria, rey de la gloria, libera las almas de todos los fieles difuntos de las penas del infierno y del lago profundo. Libéralas de la boca del león, no las absorba el tártaro ni caigan en la oscuridad. Y que el alférez San Miguel los lleve a la santa luz, como una vez le prometiste a Abraham y a sus hijos. Os ofrecemos Señor oraciones y sacrificios de alabanza, recibidos por las almas de quienes hacemos memoria: haced que pasen de la muerte a la vida, como prometiste a Abraham y a su descendencia. </pre>
     <p style="margin: 0" const="">+ Liturgy of the Eucharist +</p>
 </div>
+
+    <hr>
 
 <div is="response.may" horizontal-center="">
     <h2 const="">May the Lord</h2>
@@ -334,7 +337,7 @@ Señor Jesús Cristo, Rey de la gloria, rey de la gloria, libera las almas de to
     </pre>
 </div>
 
-    
+
 
 <div is="response.preface" horizontal-center="">
     <h2 const="">Preface<br>Dialogue</h2>
@@ -410,7 +413,9 @@ Que la luz eterna brille para ellos, Señor, con tus santos por siempre, porque 
     </div>
 </div>
 
-<hr><div is="response.salve" vertical="">
+<hr>
+
+<div is="response.salve" vertical="">
     <h2 const="">Salve Regina</h2>
     <img src="./resources/Salve Regina.png" style="margin-bottom:5px;">
     <pre font-italic="" const="" style="font-size:110%;">Queen, mother of mercy: our life, sweetness, and hope, hail. To thee do we cry, poor banished children of Eve.
