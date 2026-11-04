@@ -62,4 +62,12 @@
     p[is="LICENSE"] {
         margin-top: -5px;
     }
+
+    p[pre] {
+        text-wrap: pretty;
+    }
+
+    p[pre][nowrap] {
+        text-wrap: nowrap;
+    }
 }

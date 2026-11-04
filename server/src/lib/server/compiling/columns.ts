@@ -93,6 +93,11 @@ const divideEl = ($, $el: cheerio.Cheerio<Element>, splits: number = 2, divider:
             `n-column-divided-container` : `n-column-container`
         );
 
+    const gap = $el.css('gap');
+    if (gap !== undefined) {
+        container.css('gap', gap);
+    }
+
     for (let i = 0; i < splits; i++) {
         const $frag = $(`<${tagName}></${tagName}>`);
         $frag.text(texts[i]);
